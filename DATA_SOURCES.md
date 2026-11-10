@@ -38,8 +38,10 @@
    - URL: https://dart.fss.or.kr/
 2. **방송통신위원회／방송미디어통신위원회**:
    - 「방송사업자 재산상황 공표집」2015〜2025年版
+   - 「방송매체 이용행태 조사」（放送媒体の利用行動調査）2015〜2025年
 3. **Netflix**:
    - [Netflix Newsroom：Netflix と SBS の戦略的パートナーシップ（2024-12-20）](https://about.netflix.com/ko/news/netflix-and-sbs-strategic-partnership-to-expand-k-content-competitiveness)
+   - Netflix Services Korea 監査報告書（2020〜2025年）
    - Netflix「What We Watched」（2023年1〜6月〜2026年1〜6月）
    - [Netflix Top 10](https://www.netflix.com/tudum/top10)（国別・全週）
 4. **作品情報・局関与**:
