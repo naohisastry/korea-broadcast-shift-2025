@@ -353,12 +353,34 @@ function legend(id, items, line){ document.getElementById(id).innerHTML = items.
 function table(id, head, rows){ document.getElementById(id).innerHTML = '<table><tr>'+head.map(h=>`<th>${h}</th>`).join('')+'</tr>'+rows.map(r=>'<tr>'+r.map(v=>`<td>${v}</td>`).join('')+'</tr>').join('')+'</table>'; }
 const ylabel = y => `韓国 ${y-1}年 ／ 日本 ${y}年3月期`;
 
-// tabs
-document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
-  document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected', x===b));
-  document.querySelectorAll('section.tab').forEach(s=>s.classList.toggle('on', s.id===b.dataset.t));
+// tabs & URL routing (Plan A)
+const TAB_TO_HASH = { t1:'composition', t2:'breakdown', t3:'market', t4:'sbs', t6:'netflix', t5:'sources' };
+const HASH_TO_TAB = {
+  composition:'t1', revenue:'t1', tab1:'t1',
+  breakdown:'t2', tab2:'t2',
+  market:'t3', tab3:'t3',
+  sbs:'t4', tab4:'t4',
+  netflix:'t6', tab5:'t6', tab6:'t6',
+  sources:'t5', notes:'t5'
+};
+function switchTab(tabId, updateHistory=true){
+  const btn = document.querySelector(`.tabs button[data-t="${tabId}"]`);
+  if(!btn) return;
+  document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected', x===btn));
+  document.querySelectorAll('section.tab').forEach(s=>s.classList.toggle('on', s.id===tabId));
   hideTip(); render();
-});
+  if(updateHistory && TAB_TO_HASH[tabId]){
+    const nh = '#' + TAB_TO_HASH[tabId];
+    if(location.hash !== nh) history.pushState(null, '', nh);
+  }
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>switchTab(b.dataset.t, true));
+function syncFromHash(){
+  const h = location.hash.replace('#','').toLowerCase();
+  if(h && HASH_TO_TAB[h]) switchTab(HASH_TO_TAB[h], false);
+}
+window.addEventListener('hashchange', syncFromHash);
+window.addEventListener('popstate', syncFromHash);
 
 const ORDER = [['KR','韓国'],['SBS'],['JTBC'],['CJENM'],['CJENM_X'],['JP','日本'],['JP5'],['NTV'],['EX'],['TBS'],['TX'],['CX']];
 function rowsFor(y){ return ORDER.map(o=> o.length===2 ? {group:o[1]} : (DATA.seg.find(d=>d.co===o[0] && d.y===y) || {co:o[0], missing:true, name:(DATA.seg.find(d=>d.co===o[0])||{}).name})); }
@@ -647,7 +669,8 @@ function draw6(){ legend('lg6a',[{n:'韓国の作品',c:css('--c1')},{n:'日本�
 document.querySelectorAll('#b6c button').forEach(b=>b.onclick=()=>{ bubMode=b.dataset.v; document.querySelectorAll('#b6c button').forEach(x=>x.setAttribute('aria-pressed',x===b)); draw6c(); });
 function render(){ const on = document.querySelector('section.tab.on').id; ({t1:()=>{draw1();draw1b();},t2:draw2,t3:draw3,t4:draw4,t6:draw6})[on]?.(); }
 let rt; addEventListener('resize', ()=>{ clearTimeout(rt); rt = setTimeout(render, 120); });
-render();
+const initHash = location.hash.replace('#','').toLowerCase();
+if(initHash && HASH_TO_TAB[initHash]){ switchTab(HASH_TO_TAB[initHash], false); } else { render(); }
 </script>
 </body>
 </html>

@@ -8,14 +8,14 @@
 
 ## 画面の構成
 
-| タブ | 内容 |
-|---|---|
-| ① 3区分の構成比・売上推移 | 日韓の局の売上の3区分の比率と、会社別の推移 |
-| ② 増減の分解 | 基準年からの増減を3区分に分解 |
-| ③ 韓国の放送市場 | 事業者の区分別の売上、地上波の売上の中身 |
-| ④ SBSの番組販売 | 本体とグループの番組販売、Studio S、Wavve |
-| ⑤ Netflixでの見られ方 | 世界の視聴時間に占める比率、国別トップ10、局ごとの世界配信の比率と海外のトップ10、日本のアニメの系列別の集計 |
-| ⑥ 補足・出典 | 区分の定義、組み立て方、出典、注意、ライセンス |
+| タブ | 直リンクURL | 内容 |
+|---|---|---|
+| ① 3区分の構成比・売上推移 | [`#composition`](https://naohisastry.github.io/korea-broadcast-shift-2025/#composition) | 日韓の局の売上の3区分の比率と、会社別の推移 |
+| ② 増減の分解 | [`#breakdown`](https://naohisastry.github.io/korea-broadcast-shift-2025/#breakdown) | 基準年からの増減を3区分に分解 |
+| ③ 韓国の放送市場 | [`#market`](https://naohisastry.github.io/korea-broadcast-shift-2025/#market) | 事業者の区分別の売上、地上波の売上の中身、テレビ画面でのOTT利用推移、番組制作費比率 |
+| ④ SBSの番組販売 | [`#sbs`](https://naohisastry.github.io/korea-broadcast-shift-2025/#sbs) | 本体とグループの番組販売、Studio S、Wavve |
+| ⑤ Netflixでの見られ方 | [`#netflix`](https://naohisastry.github.io/korea-broadcast-shift-2025/#netflix) | 世界の視聴時間に占める比率、国別トップ10、局ごとの世界配信の比率と海外のトップ10、日本のアニメの系列別の集計 |
+| ⑥ 補足・出典 | [`#sources`](https://naohisastry.github.io/korea-broadcast-shift-2025/#sources) | 区分の定義、組み立て方、出典、注意、ライセンス |
 
 ## 関連
 
