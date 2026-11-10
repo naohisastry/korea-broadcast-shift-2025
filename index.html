@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>韓国放送事業者の事業シフト 2014→2025 Ver 1.00</title>
+<meta name="description" content="韓国放送事業者（SBS・CJ ENM・JTBC）の売上を「放送」「コンテンツ・IP」「放送外」に分け、日本の民放キー局5社と同じ物差しで比べるダッシュボード。2014〜2025年の開示実績と、Netflixでの見られ方（2023年1月〜2026年6月）を、日本やアジアの局と並べます。">
+<meta name="author" content="naohisastry">
+<!-- OGP Settings -->
+<meta property="og:site_name" content="KOREA TV SHIFT (Naohisa Hashimoto Media Architecture Research)">
+<meta property="og:title" content="韓国放送事業者の事業シフト 2014→2025 — 中身と変化とNetflix">
+<meta property="og:description" content="韓国放送事業者（SBS・CJ ENM・JTBC）の売上を「放送」「コンテンツ・IP」「放送外」に分け、日本の民放キー局5社と同じ物差しで比べるダッシュボード。2014〜2025年の開示実績と、Netflixでの見られ方（2023年1月〜2026年6月）を、日本やアジアの局と並べます。">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://naohisastry.github.io/korea-broadcast-shift-2025/">
+<meta property="og:image" content="https://naohisastry.github.io/korea-broadcast-shift-2025/social-preview.png">
+<meta property="og:image:secure_url" content="https://naohisastry.github.io/korea-broadcast-shift-2025/social-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<!-- Twitter Card Settings -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="韓国放送事業者の事業シフト 2014→2025 — 中身と変化とNetflix">
+<meta name="twitter:description" content="韓国放送事業者（SBS・CJ ENM・JTBC）の売上を「放送」「コンテンツ・IP」「放送外」に分け、日本の民放キー局5社と同じ物差しで比べるダッシュボード。2014〜2025年の開示実績と、Netflixでの見られ方（2023年1月〜2026年6月）を、日本やアジアの局と並べます。">
+<meta name="twitter:image" content="https://naohisastry.github.io/korea-broadcast-shift-2025/social-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<style>
+:root{
+  --bg:#0a0e1a; --panel:#111726; --fg:#eef1f5; --fg2:#b8c0cc; --muted:#8a93a1; --line:#273041; --grid:#1d2433;
+  --c1:#4b93ec; --c2:#e46c36; --c3:#22ad7c;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --other:#7c8494;
+  --accent:#9cc2f0; --warn:#ffb35c;
+  --f-display:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --f-body:"BIZ UDPGothic","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.7}
+header{max-width:1120px;margin:0 auto;padding:28px 16px 8px}
+h1{font-family:var(--f-display);font-weight:900;font-size:clamp(22px,3.4vw,32px);line-height:1.35;margin:0 0 8px}
+.lead{color:var(--fg2);margin:0;max-width:820px}
+nav{position:sticky;top:0;z-index:5;background:rgba(10,14,26,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.tabs{max-width:1120px;margin:0 auto;padding:0 16px;display:flex;gap:4px;overflow-x:auto}
+.tabs button{flex:0 0 auto;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);font:700 14px var(--f-body);padding:12px 12px 9px;cursor:pointer}
+.tabs button[aria-selected=true]{color:var(--fg);border-bottom-color:var(--accent)}
+main{max-width:1120px;margin:0 auto;padding:16px}
+section.tab{display:none}
+section.tab.on{display:block}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 18px 14px;margin:0 0 18px}
+h2{font-family:var(--f-display);font-size:20px;margin:0 0 4px}
+h3{font-family:var(--f-display);font-size:16px;margin:0 0 4px}
+.sub{color:var(--fg2);font-size:13.5px;margin:0 0 12px}
+.ctrl{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin:0 0 12px;font-size:13.5px;color:var(--fg2)}
+.ctrl input[type=range]{width:min(360px,70vw);accent-color:var(--accent)}
+.ylab{font:700 15px var(--f-body);color:var(--fg)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--fg2);margin:4px 0 8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.legend i.ln{height:3px;border-radius:2px;vertical-align:3px;width:16px}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.axis text{fill:var(--muted);font:12px var(--f-body)}
+.axis path,.axis line{stroke:var(--line)}
+.grid line{stroke:var(--grid)}
+.grid path{display:none}
+.lbl{fill:var(--fg);font:12px var(--f-body)}
+.lbl.m{fill:var(--fg2)}
+.lbl.in{fill:#fff;font-weight:700}
+.grp{fill:var(--muted);font:700 12px var(--f-body);letter-spacing:.06em}
+.note{color:var(--muted);font-size:12.5px;margin:8px 0 0}
+.note b{color:var(--fg2)}
+.tip{position:fixed;pointer-events:none;background:#1b2234;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12.5px;color:var(--fg);box-shadow:0 6px 20px rgba(0,0,0,.4);opacity:0;transition:opacity .08s;max-width:300px;z-index:20}
+.tip b{font-weight:700}
+.tip .r{display:flex;justify-content:space-between;gap:14px}
+.tip .k{color:var(--fg2)}
+.tip i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+details{margin-top:8px}
+summary{cursor:pointer;color:var(--accent);font-size:13px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;font-size:12.5px;margin-top:6px;min-width:100%}
+th,td{border-bottom:1px solid var(--line);padding:4px 8px;text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--fg2);font-weight:700}
+.seg-btns{display:flex;flex-wrap:wrap;gap:6px}
+.seg-btns button{background:#0d1322;border:1px solid var(--line);color:var(--fg2);font:700 13px var(--f-body);padding:6px 12px;border-radius:999px;cursor:pointer}
+.seg-btns button[aria-pressed=true]{background:#1d2a44;border-color:var(--accent);color:var(--fg)}
+.seg-btns .sep{width:100%;height:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:820px){.two{grid-template-columns:1fr}}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:0 0 18px}
+.kpi>div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpi .v{font:900 26px var(--f-display);line-height:1.2}
+.kpi .k{color:var(--fg2);font-size:12.5px}
+.prose p,.prose li{color:var(--fg2);font-size:14px}
+.prose h3{margin-top:18px}
+.prose table td,.prose table th{white-space:normal;text-align:left}
+.nf-kpi .v small{font-size:14px;font-weight:700;color:var(--fg2);margin-left:2px}
+.bub-lbl{fill:var(--fg);font:12px var(--f-body);paint-order:stroke;stroke:var(--panel);stroke-width:3px;stroke-linejoin:round}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:999px;border:1px solid var(--line);color:var(--fg2)}
+.tag.a{border-color:var(--c3);color:var(--c3)}
+.tag.b{border-color:var(--warn);color:var(--warn)}
+.tag.c{color:var(--muted)}
+.prose td .tag{white-space:nowrap}
+a{color:var(--accent)}
+.series{font:700 12px var(--f-body);letter-spacing:.12em;color:var(--accent);margin:0 0 6px}
+.hrow{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-start;justify-content:space-between}
+.hrow>div:first-child{min-width:0;flex:1 1 560px}
+.ver{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);white-space:nowrap}
+.ver .tag{color:var(--fg);border-color:var(--accent)}
+footer.app-footer{max-width:none;border-top:1px solid var(--line);margin-top:8px;padding:20px 0 28px}
+.footer-container{max-width:1120px;margin:0 auto;padding:0 16px;display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center}
+.footer-container p{margin:0}
+.footer-title{font-size:12.5px;color:var(--fg2);font-weight:500}
+.footer-sub{font-size:11.5px;color:var(--muted)}
+#footer-line{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;color:var(--muted);margin-top:3px}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="hrow">
+    <div>
+      <div class="series">KOREA TV SHIFT ・ 韓国放送事業者</div>
+      <h1>韓国放送事業者の事業シフト　～中身と変化とNetflix～</h1>
+      <p class="lead">SBS・CJ ENM・JTBC の売上を「放送」「コンテンツ・IP」「放送外」の3つに分け、日本の民放キー局5社と同じ物差しで並べました。2014〜2025年の開示実績です（予測はありません）。⑤では、Netflixでの見られ方（2023年1月〜2026年6月）を、日本やアジアの局と比べています。</p>
+    </div>
+    <div class="ver"><span class="tag">Ver 1.00</span><span>2026.11</span></div>
+  </div>
+</header>
+<nav><div class="tabs" role="tablist">
+  <button role="tab" aria-selected="true" data-t="t1">① 3区分の構成比・売上推移</button>
+  <button role="tab" aria-selected="false" data-t="t2">② 増減の分解</button>
+  <button role="tab" aria-selected="false" data-t="t3">③ 韓国の放送市場</button>
+  <button role="tab" aria-selected="false" data-t="t4">④ SBSの番組販売</button>
+  <button role="tab" aria-selected="false" data-t="t6">⑤ Netflixでの見られ方</button>
+  <button role="tab" aria-selected="false" data-t="t5">⑥ 補足・出典</button>
+</div></nav>
+<main>
+<section class="tab on" id="t1">
+  <div class="card">
+    <h2>売上の構成比（日韓）</h2>
+    <p class="sub">連結売上に占める3区分の比率です。金額は国ごとに通貨が違うため、比率で比べます。年は「韓国の暦年」と「日本の翌年3月期」を同じ年として並べています。</p>
+    <div class="ctrl"><span class="ylab" id="y1lab"></span><input type="range" id="y1" min="2016" max="2026" step="1" value="2026" aria-label="年"></div>
+    <div class="legend" id="lg1"></div>
+    <div id="c1"></div>
+    <p class="note" id="n1"></p>
+    <details><summary>数値表</summary><div class="tbl" id="tb1"></div></details>
+  </div>
+  <div class="card">
+    <h2>会社別の推移（3区分の積み上げ）</h2>
+    <p class="sub">会社を選ぶと、連結売上の3区分の推移を年ごとの積み上げ棒で示します。「金額」は各国の通貨（韓国：億ウォン、日本：億円）、「構成比」は売上に占める比率です。</p>
+    <div class="ctrl"><div class="seg-btns" id="co1b" role="group" aria-label="会社"></div></div>
+    <div class="ctrl"><div class="seg-btns" id="md1b" role="group" aria-label="表示">
+      <button aria-pressed="true" data-m="abs">金額</button><button aria-pressed="false" data-m="pct">構成比</button></div></div>
+    <div class="legend" id="lg1b"></div>
+    <div id="c1b"></div>
+    <p class="note" id="n1b"></p>
+    <details><summary>数値表</summary><div class="tbl" id="tb1b"></div></details>
+  </div>
+</section>
+<section class="tab" id="t2">
+  <div class="card">
+    <h2>基準年からの増減を、3区分に分解する</h2>
+    <p class="sub">基準年（韓国 2015年、日本 2016年3月期）の連結売上を100として、選んだ年までに各区分がどれだけ押し上げたか（右）・押し下げたか（左）を示します。●は売上全体の増減です。</p>
+    <div class="ctrl"><span class="ylab" id="y2lab"></span><input type="range" id="y2" min="2017" max="2026" step="1" value="2026" aria-label="年"></div>
+    <div class="legend" id="lg2"></div>
+    <div id="c2"></div>
+    <p class="note">CJ ENM は 2018年に通販事業と合併し、通販を含めると基準年から約3.8倍になるため、ここでは「通販除く」だけを表示しています。2018年以降は旧 CJ E&M と会社の範囲が違う点にも注意してください。</p>
+    <details><summary>数値表</summary><div class="tbl" id="tb2"></div></details>
+  </div>
+</section>
+<section class="tab" id="t3">
+  <div class="kpi" id="k3"></div>
+  <div class="two">
+    <div class="card">
+      <h3>事業者の区分別 放送事業売上</h3>
+      <p class="sub">単位：億ウォン。放送事業者の財産状況公表集の個票を合計したもの。</p>
+      <div class="legend" id="lg3a"></div>
+      <div id="c3a"></div>
+      <details><summary>数値表</summary><div class="tbl" id="tb3a"></div></details>
+    </div>
+    <div class="card">
+      <h3>地上波の売上の中身</h3>
+      <p class="sub">単位：億ウォン。地上波事業者（KBS・MBC・SBS・EBS・地方局など）の合計。</p>
+      <div class="legend" id="lg3b"></div>
+      <div id="c3b"></div>
+      <details><summary>数値表</summary><div class="tbl" id="tb3b"></div></details>
+    </div>
+  </div>
+  <p class="note">2014年と2023年の一部は翌年版の前年列で補っています。年度合計は公表集の公式集計と±1%以内で一致します（詳細は⑥）。</p>
+</section>
+<section class="tab" id="t4">
+  <div class="card">
+    <h2>SBS本体の番組販売は4割減。でもグループでは横ばい</h2>
+    <p class="sub">本体の番組販売は2022年の頂点から2025年までに40%減りました。ところがグループ全体の番組販売はほぼ同じ水準を保っています。減った分の多くは、ドラマの権利を持って売る役割を制作子会社 Studio S に移したことによるものです。</p>
+  </div>
+  <div class="two">
+    <div class="card">
+      <h3>グループの番組販売（国内・輸出）とTV広告</h3>
+      <p class="sub">単位：億ウォン。DART 事業報告書「매출실적(연결기준)」。</p>
+      <div class="legend" id="lg4a"></div>
+      <div id="c4a"></div>
+    </div>
+    <div class="card">
+      <h3>本体の番組販売、Studio S、Wavve からの収入</h3>
+      <p class="sub">単位：億ウォン。本体と Studio S は財産状況公表集、Wavve は Wavve の財務諸表の関連当事者注記（SBSグループからの購入額）。</p>
+      <div class="legend" id="lg4b"></div>
+      <div id="c4b"></div>
+    </div>
+  </div>
+  <div class="card prose">
+    <h3>読み方</h3>
+    <ul>
+      <li><b>グループの番組販売</b>は 2022年 6,701億 → 2025年 6,665億（−0.5%）。同じ期間にTV広告は −31%。</li>
+      <li><b>Studio S</b> の権利販売収入は 2022年 476億 → 2023年 1,307億。権利を Studio S が持ち、自分で売る形に変わりました。</li>
+      <li><b>Wavve</b>（SBSも株主の国内OTT）からの収入は 2022年 751億 → 2025年 214億。国内向けの番組販売の減少（−521億）とほぼ同じ規模です。</li>
+      <li><b>輸出</b>は 2025年に 1,772億（前年比 +63%）で過去最高。SBS と Netflix の6年契約（2025年1月開始、金額非公開）と時期が重なります。輸出増のすべてが Netflix によるとは断定できません。</li>
+    </ul>
+    <details><summary>数値表</summary><div class="tbl" id="tb4"></div></details>
+  </div>
+</section>
+<section class="tab" id="t6">
+  <div class="kpi nf-kpi">
+    <div><div class="k">Netflixの世界の視聴時間に占める韓国の作品</div><div class="v">8.9<small>%</small></div><div class="k">2026年1〜6月。英語以外では最大。日本の作品は5.9%</div></div>
+    <div><div class="k">東南アジアの国別トップ10に占める韓国の作品</div><div class="v">33〜46<small>%</small></div><div class="k">米国3%、英国2%。強いのはアジア</div></div>
+    <div><div class="k">SBSの番組が自国外のトップ10に入った回数</div><div class="v">9 → 808</div><div class="k">2024年7〜12月 → 2026年1〜6月（包括契約の後）</div></div>
+    <div><div class="k">JTBCの番組が自国外のトップ10に入った回数</div><div class="v">1,097 → 9</div><div class="k">2023年7〜12月 → 2026年1〜6月（新作が減った）</div></div>
+  </div>
+  <div class="two">
+    <div class="card">
+      <h3>世界の視聴時間に占める、韓国と日本の作品の比率</h3>
+      <p class="sub">単位：%。Netflix「What We Watched」の全作品の視聴時間に占める比率（半年ごと）。</p>
+      <div class="legend" id="lg6a"></div>
+      <div id="c6a"></div>
+    </div>
+    <div class="card">
+      <h3>国別トップ10に占める、韓国の作品の比率</h3>
+      <p class="sub">2023年1月〜2026年6月の、週ごとのトップ10（シリーズ）の枠に占める比率。</p>
+      <div id="c6b"></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>世界配信の比率と、海外のトップ10に入った回数</h2>
+    <p class="sub">横軸は、その局の作品の視聴時間のうち、全世界で配信されている作品の割合。縦軸は、自国以外の国の週のトップ10に入った回数（国×週、対数）。円の大きさはNetflixでの視聴時間。白抜きは局の作品以外。</p>
+    <div class="ctrl"><div class="seg-btns" id="b6c"><button aria-pressed="true" data-v="live">実写（日本はアニメを除く）</button><button aria-pressed="false" data-v="anime">アニメを含む（日本は最初に放送した系列）</button></div></div>
+    <div class="legend" id="lg6c"></div>
+    <div id="c6c"></div>
+    <p class="note" id="n6c"></p>
+    <details><summary>数値表</summary><div class="tbl" id="tb6c"></div></details>
+  </div>
+  <div class="card">
+    <h2>SBSは包括契約の後に海外へ出ていった。JTBCは細った</h2>
+    <p class="sub">半年ごとの推移。点線は SBS×Netflix の包括契約（2024年12月）。フジテレビは2024年前半まで該当作品なし。日本はアニメを除く。</p>
+    <div class="legend" id="lg6d"></div>
+    <div class="two"><div><h3>世界配信の比率（%）</h3><div id="c6d1"></div></div><div><h3>自国外のトップ10に入った回数</h3><div id="c6d2"></div></div></div>
+  </div>
+  <div class="card prose">
+    <h3>日本のアニメは、局の枠から生まれている</h3>
+    <p>日本以外のトップ10に入ったアニメを、最初に放送した系列ごとに数えました。製作委員会の出資の内訳は開示されないため、著作権の表示・局の決算資料・局の配信許諾の発表で局の関与を確かめ、関与が分からない作品も数えています。局が関わらないことがはっきりした作品（地獄楽・チェンソーマン・ドラゴンボールDAIMA・SLAM DUNK）は除きました。</p>
+    <div class="tbl"><table>
+      <tr><th>最初に放送した系列</th><th>海外のトップ10（アニメ）</th><th>うち局の関与を確認</th><th>作品（回数）</th></tr>
+      <tr><td>テレビ東京系</td><td>742回</td><td>202回</td><td>SAKAMOTO DAYS 409 <span class="tag b">不明</span>、SPY×FAMILY 176 <span class="tag a">確認</span>、ワンパンマン 131 <span class="tag b">不明</span>、NARUTO疾風伝 21 <span class="tag a">確認</span>、ブラッククローバー 5 <span class="tag a">確認</span></td></tr>
+      <tr><td>TBS系</td><td>360回</td><td>360回</td><td>呪術廻戦 349 <span class="tag a">確認（MBS）</span>、ハイキュー!! 11 <span class="tag a">確認（MBS）</span></td></tr>
+      <tr><td>日本テレビ系</td><td>166回</td><td>113回</td><td>薬屋のひとりごと 107 <span class="tag a">確認</span>、葬送のフリーレン 52 <span class="tag b">不明</span>、HUNTER×HUNTER 4 <span class="tag a">確認</span>、犬夜叉 2 <span class="tag a">確認（読売テレビ）</span>、ヴィジランテ 1 <span class="tag b">不明</span></td></tr>
+      <tr><td>フジテレビ系</td><td>59回</td><td>0回</td><td>喧嘩独学 59 <span class="tag b">不明</span></td></tr>
+    </table></div>
+    <p class="note">「確認」は局の関与を資料で確かめた作品、「不明」は製作委員会の名前だけが表示され、局が入っているか分からない作品。フジ系に入っていた『幽☆遊☆白書』はNetflixの実写版（2023年）のためNetflixの自社作品へ、『転生したらスライムだった件』は複数の局で放送されたため独立局等へ移しました。</p>
+  </div>
+</section>
+<section class="tab" id="t5">
+  <div class="card prose">
+    <h2>補足・出典</h2>
+    <h3>3区分の定義（<a href="https://naohisastry.github.io/japan-commercial-tv-shift-2035/v2/" target="_blank" rel="noopener">日本の TV-Shift 2035</a> に合わせたもの）</h3>
+    <table>
+      <tr><th>区分</th><th>韓国で含めるもの</th><th>日本との違い</th></tr>
+      <tr><td>放送</td><td>広告（協賛を含む）、伝送対価（有料放送からの再送信料・番組提供料）、受信料（KBS）、その他の放送事業</td><td>伝送対価は日本にほぼ無い収入。PP・종편（総合編成チャンネル）の広告も放送に入れる（日本の CS放送はコンテンツ・IP）</td></tr>
+      <tr><td>コンテンツ・IP</td><td>番組販売、イベント、映画・ドラマ、音楽、公演、配信（TVING など）、通販（CJ ENM）</td><td>通販は日本と同じくここに入れる。CJ ENM は「通販除く」も表示</td></tr>
+      <tr><td>放送外</td><td>放送と関係しない事業、施設賃貸、CJハロー（有料放送、2018年のみ）</td><td>—</td></tr>
+      <tr><td>デジタル収益（重なり）</td><td>データなし</td><td>韓国では配信向けの販売が番組販売に混ざり、切り出せない</td></tr>
+    </table>
+    <h3>組み立て方</h3>
+    <ul>
+      <li><b>売上合計と区分</b>は DART の連結開示。連結注記の「프로그램 판매 등 기타（番組販売など）」に混ざる本体の伝送対価などは、財産状況公表集の本体単体の値で「放送」へ振り替えました。DART の「TV 광고」は公表集の「広告＋協賛」と一致します。</li>
+      <li><b>JTBC</b> は 2018年以前、連結の内訳がないため公表集の本体単体を使っています。</li>
+      <li><b>CJ ENM</b> は 2017年まで旧 CJ E&M（通販事業と合併する前）。2018年は合併の年で、E&M 事業は7〜12月分のみ連結に入っています。</li>
+      <li><b>日本</b>の値は TV-Shift 2035 v2 の開示実績（MAIN系列）を使っています。</li>
+    </ul>
+    <h3>出典</h3>
+    <ul>
+      <li>DART（韓国 金融監督院 電子公示システム）：SBS・CJ ENM・旧 CJ E&M・JTBC・Wavve の事業報告書、監査報告書、OpenDART API</li>
+      <li>방송통신위원회／방송미디어통신위원회「방송사업자 재산상황 공표집」2015〜2025年版</li>
+      <li><a href="https://about.netflix.com/ko/news/netflix-and-sbs-strategic-partnership-to-expand-k-content-competitiveness">Netflix Newsroom：Netflix と SBS の戦略的パートナーシップ（2024-12-20）</a></li>
+      <li>Netflix「What We Watched」（2023年1〜6月〜2026年1〜6月）、<a href="https://www.netflix.com/tudum/top10">Netflix Top 10</a>（国別・全週）</li>
+      <li>作品の局と制作国：Wikidata。日本のアニメの局の関与：各作品の著作権表示、キー局の決算説明資料・決算短信（2025年5月〜2026年8月）、日本テレビの配信許諾の発表など</li>
+      <li><a href="https://naohisastry.github.io/japan-commercial-tv-shift-2035/v2/">TV-Shift 2035（日本の民放キー局5社）</a></li>
+    </ul>
+    <h3>注意</h3>
+    <ul>
+      <li>金額は各国の通貨のまま（韓国：億ウォン、日本：億円）。会計基準・決算期が異なるため、比率と指数で比べてください。</li>
+      <li>⑤の「世界配信の比率」は Netflix が作品ごとに示す「Available Globally?」、「自国外のトップ10」は国別トップ10（94か国）の国×週の回数です。視聴時間は10万時間単位に丸めた公表値です。</li>
+      <li>⑤の局は「最初にその作品を放送した局」です。アニメの権利は製作委員会が持つため、局の作品とは限りません。</li>
+      <li>財産状況公表集の値は事業者の提出資料に基づき、監査・検証は受けていません。</li>
+    </ul>
+      <h3>ライセンス</h3>
+    <ul>
+      <li><b>コード</b>（HTML / CSS / JavaScript）：MIT License</li>
+      <li><b>コンテンツ</b>（文章・図表・分析結果・整理済みデータ）：<a href="https://creativecommons.org/licenses/by/4.0/deed.ja">CC BY 4.0</a>。出典を表示すれば、商用を含め自由に利用・改変・再配布できます。</li>
+      <li><b>出典表示の例</b>：Naohisa Hashimoto, "韓国放送事業者の事業シフト 2014→2025（KOREA TV SHIFT）", https://naohisastry.github.io/korea-broadcast-shift-2025/</li>
+      <li>第三者の元データ（企業の開示資料、公的統計、Netflixの公表データなど）の権利は各発行元に、各社の社名・ロゴ・商標は各社に帰属し、本ライセンスの対象外です。</li>
+    </ul>
+  </div>
+</section>
+</main>
+<footer class="app-footer">
+  <div class="footer-container">
+    <p class="footer-title">KOREA TV SHIFT「韓国放送事業者の事業シフト 2014→2025」売上の3区分とNetflixでの見られ方のダッシュボード</p>
+    <p class="footer-sub">企画・分析・データ設計：Naohisa Hashimoto（Media Architect）</p>
+    <p id="footer-line">© 2026 Naohisa Hashimoto’S Update date:2026/11/10</p>
+  </div>
+</footer>
+<div class="tip" id="tip"></div>
+<script>
+const DATA = {"seg": [{"co": "CX", "name": "フジ・メディアHD", "ctry": "JP", "y": 2014, "fy": 2014, "unit": "億円", "t": 6421.4, "b": 2654.8, "ip": 1828.6, "nb": 1938.0}, {"co": "EX", "name": "テレビ朝日HD", "ctry": "JP", "y": 2014, "fy": 2014, "unit": "億円", "t": 2679.3, "b": 2047.9, "ip": 631.4, "nb": 0.0}, {"co": "TBS", "name": "TBS HD", "ctry": "JP", "y": 2014, "fy": 2014, "unit": "億円", "t": 3543.4, "b": 1975.5, "ip": 1418.5, "nb": 149.3}, {"co": "TX", "name": "テレビ東京HD", "ctry": "JP", "y": 2014, "fy": 2014, "unit": "億円", "t": 1207.0, "b": 888.7, "ip": 318.2, "nb": 0.0}, {"co": "CX", "name": "フジ・メディアHD", "ctry": "JP", "y": 2015, "fy": 2015, "unit": "億円", "t": 6433.1, "b": 2651.0, "ip": 1757.6, "nb": 2024.6}, {"co": "EX", "name": "テレビ朝日HD", "ctry": "JP", "y": 2015, "fy": 2015, "unit": "億円", "t": 2764.7, "b": 2044.8, "ip": 719.9, "nb": 0.0}, {"co": "NTV", "name": "日本テレビHD", "ctry": "JP", "y": 2015, "fy": 2015, "unit": "億円", "t": 3625.0, "b": 2532.5, "ip": 952.2, "nb": 140.2}, {"co": "TBS", "name": "TBS HD", "ctry": "JP", "y": 2015, "fy": 2015, "unit": "億円", "t": 3478.2, "b": 1953.0, "ip": 1372.4, "nb": 152.8}, {"co": "TX", "name": "テレビ東京HD", "ctry": "JP", "y": 2015, "fy": 2015, "unit": "億円", "t": 1286.7, "b": 943.3, "ip": 343.4, "nb": 0.0}, {"co": "CJENM", "name": "CJ ENM", "ctry": "KR", "y": 2015, "fy": 2014, "unit": "億ウォン", "t": 12326.6, "b": 6262.5, "ip": 6064.1, "nb": 0.0}, {"co": "JTBC", "name": "JTBC", "ctry": "KR", "y": 2015, "fy": 2014, "unit": "億ウォン", "t": 1308.9, "b": 1174.3, "ip": 134.6, "nb": 0.0}, {"co": "CX", "name": "フジ・メディアHD", "ctry": "JP", "y": 2016, "fy": 2016, "unit": "億円", "t": 6405.7, "b": 2448.6, "ip": 1673.5, "nb": 2283.5}, {"co": "EX", "name": "テレビ朝日HD", "ctry": "JP", "y": 2016, "fy": 2016, "unit": "億円", "t": 2807.8, "b": 2036.4, "ip": 771.4, "nb": 0.0}, {"co": "NTV", "name": "日本テレビHD", "ctry": "JP", "y": 2016, "fy": 2016, "unit": "億円", "t": 4147.8, "b": 2631.8, "ip": 1103.7, "nb": 412.2}, {"co": "TBS", "name": "TBS HD", "ctry": "JP", "y": 2016, "fy": 2016, "unit": "億円", "t": 3485.4, "b": 1952.6, "ip": 1378.0, "nb": 154.8}, {"co": "TX", "name": "テレビ東京HD", "ctry": "JP", "y": 2016, "fy": 2016, "unit": "億円", "t": 1362.1, "b": 950.6, "ip": 411.6, "nb": 0.0}, {"co": "CJENM", "name": "CJ ENM", "ctry": "KR", "y": 2016, "fy": 2015, "unit": "億ウォン", "t": 13473.1, "b": 6633.4, "ip": 6839.7, "nb": 0.0}, {"co": "JTBC", "name": "JTBC", "ctry": "KR", "y": 2016, "fy": 2015, "unit": "億ウォン", "t": 1972.4, "b": 1761.2, "ip": 211.2, "nb": 0.0}, {"co": "SBS", "name": "SBS", "ctry": "KR", "y": 2016, "fy": 2015, "unit": "億ウォン", "t": 7928.8, "b": 5606.2, "ip": 2114.0, "nb": 208.6}, {"co": "CX", "name": "フジ・メディアHD", "ctry": "JP", "y": 2017, "fy": 2017, "unit": "億円", "t": 6539.7, "b": 2337.9, "ip": 1727.2, "nb": 2474.7}, {"co": "EX", "name": "テレビ朝日HD", "ctry": "JP", "y": 2017, "fy": 2017, "unit": "億円", "t": 2958.8, "b": 2104.5, "ip": 854.3, "nb": 0.0}, {"co": "NTV", "name": "日本テレビHD", "ctry": "JP", "y": 2017, "fy": 2017, "unit": "億円", "t": 4167.0, "b": 2708.6, "ip": 1033.4, "nb": 425.1}, {"co": "TBS", "name": "TBS HD", "ctry": "JP", "y": 2017, "fy": 2017, "unit": "億円", "t": 3553.6, "b": 1994.8, "ip": 1406.8, "nb": 152.0}, {"co": "TX", "name": "テレビ東京HD", "ctry": "JP", "y": 2017, "fy": 2017, "unit": "億円", "t": 1426.8, "b": 962.1, "ip": 464.6, "nb": 0.0}, {"co": "CJENM", "name": "CJ ENM", "ctry": "KR", "y": 2017, "fy": 2016, "unit": "億ウォン", "t": 15384.2, "b": 6871.2, "ip": 8513.0, "nb": 0.0}, {"co": "JTBC", "name": "JTBC", "ctry": "KR", "y": 2017, "fy": 2016, "unit": "億ウォン", "t": 1994.9, "b": 1738.7, "ip": 255.6, "nb": 0.5}, {"co": "SBS", "name": "SBS", "ctry": "KR", "y": 2017, "fy": 2016, "unit": "億ウォン", "t": 8290.7, "b": 5215.3, "ip": 2862.6, "nb": 212.8}, {"co": "CX", "name": "フジ・メディアHD", "ctry": "JP", "y": 2018, "fy": 2018, "unit": "億円", "t": 6465.3, "b": 2230.9, "ip": 1706.8, "nb": 2527.6}, {"co": "EX", "name": "テレビ朝日HD", "ctry": "JP", "y": 2018, "fy": 2018, "unit": "億円", "t": 3025.1, "b": 2083.2, "ip": 941.9, "nb": 0.0}, {"co": "NTV", "name": "日本テレビHD", "ctry": "JP", "y": 2018, "fy": 2018, "unit": "億円", "t": 4236.6, "b": 2700.9, "ip": 1097.6, "nb": 438.2}, {"co": "TBS", "name": "TBS HD", "ctry": "JP", "y": 2018, "fy": 2018, "unit": "億円", "t": 3619.5, "b": 1973.5, "ip": 1487.3, "nb": 158.7}, {"co": "TX", "name": "テレビ東京HD", "ctry": "JP", "y": 2018, "fy": 2018, "unit": "億円", "t": 1471.0, "b": 958.3, "ip": 512.7, "nb": 0.0}, {"co": "CJENM", "name": "CJ ENM", "ctry": "KR", "y": 2018, "fy": 2017, "unit": "億ウォン", "t": 17501.2, "b": 6826.6, "ip": 10674.6, "nb": 0.0}, {"co": "JTBC", "name": "JTBC", "ctry": "KR", "y": 2018, "fy": 2017, "unit": "億ウォン", "t": 3111.8, "b": 2676.9, "ip": 434.0, "nb": 0.9}, {"co": "SBS", "name": "SBS", "ctry": "KR", "y": 2018, "fy": 2017, "unit": "億ウォン", "t": 7732.2, "b": 5366.3, "ip": 2149.9, "nb": 216.0}, {"co": "CX", "name": "フジ・メディアHD", "ctry": "JP", "y": 2019, "fy": 2019, "unit": "億円", "t": 6692.3, "b": 2188.1, "ip": 1992.7, "nb": 2511.6}, {"co": "EX", "name": "テレビ朝日HD", "ctry": "JP", "y": 2019, "fy": 2019, "unit": "億円", "t": 3017.4, "b": 2036.8, "ip": 980.6, "nb": 0.0}, {"co": "NTV", "name": "日本テレビHD", "ctry": "JP", "y": 2019, "fy": 2019, "unit": "億円", "t": 4249.4, "b": 2709.5, "ip": 1104.4, "nb": 435.5}, {"co": "TBS", "name": "TBS HD", "ctry": "JP", "y": 2019, "fy": 2019, "unit": "億円", "t": 3663.5, "b": 1976.9, "ip": 1523.9, "nb": 162.7}, {"co": "TX", "name": "テレビ東京HD", "ctry": "JP", "y": 2019, "fy": 2019, "unit": "億円", "t": 1492.3, "b": 947.9, "ip": 544.4, "nb": 0.0}, {"co": "CJENM", "name": "CJ ENM", "ctry": "KR", "y": 2019, "fy": 2018, "unit": "億ウォン", "t": 34268.2, "b": 3904.5, "ip": 19699.2, "nb": 10664.4}, {"co": "JTBC", "name": "JTBC", "ctry": "KR", "y": 2019, "fy": 2018, "unit": "億ウォン", "t": 3478.7, "b": 3020.6, "ip": 457.2, "nb": 0.9}, {"co": "SBS", "name": "SBS", "ctry": "KR", "y": 2019, "fy": 2018, "unit": "億ウォン", "t": 9140.4, "b": 5207.9, "ip": 3678.8, "nb": 253.7}, {"co": "CX", "name": "フジ・メディアHD", "ctry": "JP", "y": 2020, "fy": 2020, "unit": "億円", "t": 6314.8, "b": 2126.2, "ip": 1969.5, "nb": 2219.1}, {"co": "EX", "name": "テレビ朝日HD", "ctry": "JP", "y": 2020, "fy": 2020, "unit": "億円", "t": 2936.4, "b": 1920.5, "ip": 1015.9, "nb": 0.0}, {"co": "NTV", "name": "日本テレビHD", "ctry": "JP", "y": 2020, "fy": 2020, "unit": "億円", "t": 4266.0, "b": 2628.0, "ip": 1210.9, "nb": 427.1}, {"co": "TBS", "name": "TBS HD", "ctry": "JP", "y": 2020, "fy": 2020, "unit": "億円", "t": 3567.9, "b": 1929.2, "ip": 773.4, "nb": 865.3}, {"co": "TX", "name": "テレビ東京HD", "ctry": "JP", "y": 2020, "fy": 2020, "unit": "億円", "t": 1451.7, "b": 882.3, "ip": 569.4, "nb": 0.0}, {"co": "CJENM", "name": "CJ ENM", "ctry": "KR", "y": 2020, "fy": 2019, "unit": "億ウォン", "t": 37897.2, "b": 8087.4, "ip": 29809.9, "nb": 0.0}, {"co": "JTBC", "name": "JTBC", "ctry": "KR", "y": 2020, "fy": 2019, "unit": "億ウォン", "t": 3375.4, "b": 2697.8, "ip": 670.3, "nb": 7.2}, {"co": "SBS", "name": "SBS", "ctry": "KR", "y": 2020, "fy": 2019, "unit": "億ウォン", "t": 8176.6, "b": 4868.0, "ip": 2878.8, "nb": 429.8}, {"co": "CX", "name": "フジ・メディアHD", "ctry": "JP", "y": 2021, "fy": 2021, "unit": "億円", "t": 5199.4, "b": 1823.0, "ip": 1546.7, "nb": 1829.7}, {"co": "EX", "name": "テレビ朝日HD", "ctry": "JP", "y": 2021, "fy": 2021, "unit": "億円", "t": 2645.6, "b": 1689.1, "ip": 956.5, "nb": 0.0}, {"co": "NTV", "name": "日本テレビHD", "ctry": "JP", "y": 2021, "fy": 2021, "unit": "億円", "t": 3913.3, "b": 2414.7, "ip": 1226.6, "nb": 272.1}, {"co": "TBS", "name": "TBS HD", "ctry": "JP", "y": 2021, "fy": 2021, "unit": "億円", "t": 3256.8, "b": 1722.1, "ip": 815.7, "nb": 719.0}, {"co": "TX", "name": "テレビ東京HD", "ctry": "JP", "y": 2021, "fy": 2021, "unit": "億円", "t": 1390.8, "b": 796.6, "ip": 594.2, "nb": 0.0}, {"co": "CJENM", "name": "CJ ENM", "ctry": "KR", "y": 2021, "fy": 2020, "unit": "億ウォン", "t": 33911.8, "b": 7011.8, "ip": 26900.1, "nb": 0.0}, {"co": "JTBC", "name": "JTBC", "ctry": "KR", "y": 2021, "fy": 2020, "unit": "億ウォン", "t": 3353.1, "b": 2633.2, "ip": 462.5, "nb": 257.5}, {"co": "SBS", "name": "SBS", "ctry": "KR", "y": 2021, "fy": 2020, "unit": "億ウォン", "t": 8603.4, "b": 4657.3, "ip": 3431.1, "nb": 515.1}, {"co": "CX", "name": "フジ・メディアHD", "ctry": "JP", "y": 2022, "fy": 2022, "unit": "億円", "t": 5250.9, "b": 2004.8, "ip": 1535.7, "nb": 1710.4}, {"co": "EX", "name": "テレビ朝日HD", "ctry": "JP", "y": 2022, "fy": 2022, "unit": "億円", "t": 2982.8, "b": 1948.7, "ip": 1034.0, "nb": 0.0}, {"co": "NTV", "name": "日本テレビHD", "ctry": "JP", "y": 2022, "fy": 2022, "unit": "億円", "t": 4063.9, "b": 2618.9, "ip": 1146.7, "nb": 298.3}, {"co": "TBS", "name": "TBS HD", "ctry": "JP", "y": 2022, "fy": 2022, "unit": "億円", "t": 3582.7, "b": 1915.6, "ip": 898.6, "nb": 768.5}, {"co": "TX", "name": "テレビ東京HD", "ctry": "JP", "y": 2022, "fy": 2022, "unit": "億円", "t": 1480.7, "b": 932.7, "ip": 548.0, "nb": 0.0}, {"co": "CJENM", "name": "CJ ENM", "ctry": "KR", "y": 2022, "fy": 2021, "unit": "億ウォン", "t": 35524.0, "b": 8276.8, "ip": 27247.2, "nb": 0.0}, {"co": "JTBC", "name": "JTBC", "ctry": "KR", "y": 2022, "fy": 2021, "unit": "億ウォン", "t": 3731.4, "b": 2925.3, "ip": 395.6, "nb": 410.5}, {"co": "SBS", "name": "SBS", "ctry": "KR", "y": 2022, "fy": 2021, "unit": "億ウォン", "t": 10789.8, "b": 5404.8, "ip": 4866.4, "nb": 518.5}, {"co": "CX", "name": "フジ・メディアHD", "ctry": "JP", "y": 2023, "fy": 2023, "unit": "億円", "t": 5356.4, "b": 1896.4, "ip": 1714.3, "nb": 1745.7}, {"co": "EX", "name": "テレビ朝日HD", "ctry": "JP", "y": 2023, "fy": 2023, "unit": "億円", "t": 3045.7, "b": 1897.3, "ip": 1148.3, "nb": 0.0}, {"co": "NTV", "name": "日本テレビHD", "ctry": "JP", "y": 2023, "fy": 2023, "unit": "億円", "t": 4139.8, "b": 2480.3, "ip": 1363.2, "nb": 296.2}, {"co": "TBS", "name": "TBS HD", "ctry": "JP", "y": 2023, "fy": 2023, "unit": "億円", "t": 3681.3, "b": 1885.9, "ip": 966.4, "nb": 829.0}, {"co": "TX", "name": "テレビ東京HD", "ctry": "JP", "y": 2023, "fy": 2023, "unit": "億円", "t": 1509.6, "b": 890.4, "ip": 619.3, "nb": 0.0}, {"co": "CJENM", "name": "CJ ENM", "ctry": "KR", "y": 2023, "fy": 2022, "unit": "億ウォン", "t": 47922.4, "b": 8133.0, "ip": 39789.4, "nb": 0.0}, {"co": "JTBC", "name": "JTBC", "ctry": "KR", "y": 2023, "fy": 2022, "unit": "億ウォン", "t": 4381.2, "b": 2836.8, "ip": 1057.2, "nb": 487.2}, {"co": "SBS", "name": "SBS", "ctry": "KR", "y": 2023, "fy": 2022, "unit": "億ウォン", "t": 11737.8, "b": 5533.6, "ip": 5686.7, "nb": 517.5}, {"co": "CX", "name": "フジ・メディアHD", "ctry": "JP", "y": 2024, "fy": 2024, "unit": "億円", "t": 5664.4, "b": 1800.3, "ip": 2015.9, "nb": 1848.2}, {"co": "EX", "name": "テレビ朝日HD", "ctry": "JP", "y": 2024, "fy": 2024, "unit": "億円", "t": 3079.0, "b": 1852.4, "ip": 1226.6, "nb": 0.0}, {"co": "NTV", "name": "日本テレビHD", "ctry": "JP", "y": 2024, "fy": 2024, "unit": "億円", "t": 4235.2, "b": 2359.2, "ip": 1568.1, "nb": 307.9}, {"co": "TBS", "name": "TBS HD", "ctry": "JP", "y": 2024, "fy": 2024, "unit": "億円", "t": 3943.1, "b": 1846.1, "ip": 1032.4, "nb": 1064.5}, {"co": "TX", "name": "テレビ東京HD", "ctry": "JP", "y": 2024, "fy": 2024, "unit": "億円", "t": 1485.9, "b": 852.5, "ip": 633.4, "nb": 0.0}, {"co": "CJENM", "name": "CJ ENM", "ctry": "KR", "y": 2024, "fy": 2023, "unit": "億ウォン", "t": 43683.6, "b": 6774.2, "ip": 36909.4, "nb": 0.0}, {"co": "JTBC", "name": "JTBC", "ctry": "KR", "y": 2024, "fy": 2023, "unit": "億ウォン", "t": 3894.3, "b": 2838.6, "ip": 585.6, "nb": 470.1}, {"co": "SBS", "name": "SBS", "ctry": "KR", "y": 2024, "fy": 2023, "unit": "億ウォン", "t": 9967.6, "b": 4897.5, "ip": 4593.6, "nb": 476.6}, {"co": "CX", "name": "フジ・メディアHD", "ctry": "JP", "y": 2025, "fy": 2025, "unit": "億円", "t": 5507.6, "b": 1549.5, "ip": 2009.3, "nb": 1948.7}, {"co": "EX", "name": "テレビ朝日HD", "ctry": "JP", "y": 2025, "fy": 2025, "unit": "億円", "t": 3240.5, "b": 1931.2, "ip": 1309.4, "nb": 0.0}, {"co": "NTV", "name": "日本テレビHD", "ctry": "JP", "y": 2025, "fy": 2025, "unit": "億円", "t": 4619.1, "b": 2400.5, "ip": 1908.8, "nb": 309.8}, {"co": "TBS", "name": "TBS HD", "ctry": "JP", "y": 2025, "fy": 2025, "unit": "億円", "t": 4067.0, "b": 1889.5, "ip": 1072.9, "nb": 1104.6}, {"co": "TX", "name": "テレビ東京HD", "ctry": "JP", "y": 2025, "fy": 2025, "unit": "億円", "t": 1558.4, "b": 889.8, "ip": 668.5, "nb": 0.0}, {"co": "CJENM", "name": "CJ ENM", "ctry": "KR", "y": 2025, "fy": 2024, "unit": "億ウォン", "t": 52313.6, "b": 6799.8, "ip": 45513.8, "nb": 0.0}, {"co": "JTBC", "name": "JTBC", "ctry": "KR", "y": 2025, "fy": 2024, "unit": "億ウォン", "t": 3800.9, "b": 2661.0, "ip": 532.7, "nb": 607.2}, {"co": "SBS", "name": "SBS", "ctry": "KR", "y": 2025, "fy": 2024, "unit": "億ウォン", "t": 10466.5, "b": 4806.7, "ip": 5246.6, "nb": 413.2}, {"co": "CX", "name": "フジ・メディアHD", "ctry": "JP", "y": 2026, "fy": 2026, "unit": "億円", "t": 5518.6, "b": 1117.4, "ip": 1949.8, "nb": 2451.4}, {"co": "EX", "name": "テレビ朝日HD", "ctry": "JP", "y": 2026, "fy": 2026, "unit": "億円", "t": 3394.9, "b": 2057.8, "ip": 1337.0, "nb": 0.0}, {"co": "NTV", "name": "日本テレビHD", "ctry": "JP", "y": 2026, "fy": 2026, "unit": "億円", "t": 4844.2, "b": 2500.9, "ip": 2025.6, "nb": 317.6}, {"co": "TBS", "name": "TBS HD", "ctry": "JP", "y": 2026, "fy": 2026, "unit": "億円", "t": 4248.5, "b": 2010.8, "ip": 1111.6, "nb": 1126.1}, {"co": "TX", "name": "テレビ東京HD", "ctry": "JP", "y": 2026, "fy": 2026, "unit": "億円", "t": 1649.1, "b": 933.6, "ip": 715.6, "nb": 0.0}, {"co": "CJENM", "name": "CJ ENM", "ctry": "KR", "y": 2026, "fy": 2025, "unit": "億ウォン", "t": 51345.1, "b": 6064.4, "ip": 45280.7, "nb": 0.0}, {"co": "JTBC", "name": "JTBC", "ctry": "KR", "y": 2026, "fy": 2025, "unit": "億ウォン", "t": 3737.5, "b": 2671.7, "ip": 486.7, "nb": 579.1}, {"co": "SBS", "name": "SBS", "ctry": "KR", "y": 2026, "fy": 2025, "unit": "億ウォン", "t": 10084.6, "b": 4666.3, "ip": 5016.5, "nb": 401.8}, {"co": "JP5", "name": "日本5局計", "ctry": "JP", "y": 2014, "fy": 2014, "unit": "億円", "t": 17268.2, "b": 7567.0, "ip": 4196.6, "nb": 2146.2}, {"co": "JP5", "name": "日本5局計", "ctry": "JP", "y": 2015, "fy": 2015, "unit": "億円", "t": 17587.6, "b": 10124.6, "ip": 5145.4, "nb": 2317.6}, {"co": "JP5", "name": "日本5局計", "ctry": "JP", "y": 2016, "fy": 2016, "unit": "億円", "t": 18208.8, "b": 10020.0, "ip": 5338.2, "nb": 2850.6}, {"co": "JP5", "name": "日本5局計", "ctry": "JP", "y": 2017, "fy": 2017, "unit": "億円", "t": 18645.9, "b": 10107.9, "ip": 5486.3, "nb": 3051.8}, {"co": "JP5", "name": "日本5局計", "ctry": "JP", "y": 2018, "fy": 2018, "unit": "億円", "t": 18817.6, "b": 9946.9, "ip": 5746.2, "nb": 3124.4}, {"co": "JP5", "name": "日本5局計", "ctry": "JP", "y": 2019, "fy": 2019, "unit": "億円", "t": 19115.0, "b": 9859.2, "ip": 6145.9, "nb": 3109.8}, {"co": "JP5", "name": "日本5局計", "ctry": "JP", "y": 2020, "fy": 2020, "unit": "億円", "t": 18536.8, "b": 9486.2, "ip": 5539.1, "nb": 3511.5}, {"co": "JP5", "name": "日本5局計", "ctry": "JP", "y": 2021, "fy": 2021, "unit": "億円", "t": 16405.9, "b": 8445.5, "ip": 5139.6, "nb": 2820.8}, {"co": "JP5", "name": "日本5局計", "ctry": "JP", "y": 2022, "fy": 2022, "unit": "億円", "t": 17360.9, "b": 9420.7, "ip": 5163.0, "nb": 2777.2}, {"co": "JP5", "name": "日本5局計", "ctry": "JP", "y": 2023, "fy": 2023, "unit": "億円", "t": 17732.7, "b": 9050.4, "ip": 5811.5, "nb": 2870.9}, {"co": "JP5", "name": "日本5局計", "ctry": "JP", "y": 2024, "fy": 2024, "unit": "億円", "t": 18407.6, "b": 8710.6, "ip": 6476.4, "nb": 3220.6}, {"co": "JP5", "name": "日本5局計", "ctry": "JP", "y": 2025, "fy": 2025, "unit": "億円", "t": 18992.6, "b": 8660.6, "ip": 6968.9, "nb": 3363.1}, {"co": "JP5", "name": "日本5局計", "ctry": "JP", "y": 2026, "fy": 2026, "unit": "億円", "t": 19655.3, "b": 8620.5, "ip": 7139.6, "nb": 3895.1}, {"co": "CJENM_X", "name": "CJ ENM（通販除く）", "ctry": "KR", "y": 2015, "fy": 2014, "unit": "億ウォン", "t": 12326.6, "b": 6262.5, "ip": 6064.1, "nb": 0.0}, {"co": "CJENM_X", "name": "CJ ENM（通販除く）", "ctry": "KR", "y": 2016, "fy": 2015, "unit": "億ウォン", "t": 13473.1, "b": 6633.4, "ip": 6839.7, "nb": 0.0}, {"co": "CJENM_X", "name": "CJ ENM（通販除く）", "ctry": "KR", "y": 2017, "fy": 2016, "unit": "億ウォン", "t": 15384.2, "b": 6871.2, "ip": 8513.0, "nb": 0.0}, {"co": "CJENM_X", "name": "CJ ENM（通販除く）", "ctry": "KR", "y": 2018, "fy": 2017, "unit": "億ウォン", "t": 17501.2, "b": 6826.6, "ip": 10674.6, "nb": 0.0}, {"co": "CJENM_X", "name": "CJ ENM（通販除く）", "ctry": "KR", "y": 2019, "fy": 2018, "unit": "億ウォン", "t": 21324.0, "b": 3904.5, "ip": 6755.1, "nb": 10664.4}, {"co": "CJENM_X", "name": "CJ ENM（通販除く）", "ctry": "KR", "y": 2020, "fy": 2019, "unit": "億ウォン", "t": 23624.6, "b": 8087.4, "ip": 15537.2, "nb": 0.0}, {"co": "CJENM_X", "name": "CJ ENM（通販除く）", "ctry": "KR", "y": 2021, "fy": 2020, "unit": "億ウォン", "t": 19125.4, "b": 7011.8, "ip": 12113.6, "nb": 0.0}, {"co": "CJENM_X", "name": "CJ ENM（通販除く）", "ctry": "KR", "y": 2022, "fy": 2021, "unit": "億ウォン", "t": 21738.6, "b": 8276.8, "ip": 13461.7, "nb": 0.0}, {"co": "CJENM_X", "name": "CJ ENM（通販除く）", "ctry": "KR", "y": 2023, "fy": 2022, "unit": "億ウォン", "t": 34369.3, "b": 8133.0, "ip": 26236.3, "nb": 0.0}, {"co": "CJENM_X", "name": "CJ ENM（通販除く）", "ctry": "KR", "y": 2024, "fy": 2023, "unit": "億ウォン", "t": 30305.0, "b": 6774.2, "ip": 23530.7, "nb": 0.0}, {"co": "CJENM_X", "name": "CJ ENM（通販除く）", "ctry": "KR", "y": 2025, "fy": 2024, "unit": "億ウォン", "t": 37799.5, "b": 6799.8, "ip": 30999.7, "nb": 0.0}, {"co": "CJENM_X", "name": "CJ ENM（通販除く）", "ctry": "KR", "y": 2026, "fy": 2025, "unit": "億ウォン", "t": 36164.6, "b": 6064.4, "ip": 30100.2, "nb": 0.0}], "notes": {"CJENM2014": ["CONSOLIDATED_CJEM_OLD", "旧CJ E&M連結（通販事業の合併前）。放送＝本体単体の広告・協賛・伝送対価"], "CJENM2015": ["CONSOLIDATED_CJEM_OLD", "旧CJ E&M連結（通販事業の合併前）。放送＝本体単体の広告・協賛・伝送対価"], "CJENM2016": ["CONSOLIDATED_CJEM_OLD", "旧CJ E&M連結（通販事業の合併前）。放送＝本体単体の広告・協賛・伝送対価"], "CJENM2017": ["CONSOLIDATED_CJEM_OLD", "旧CJ E&M連結（通販事業の合併前）。放送＝本体単体の広告・協賛・伝送対価"], "CJENM2018": ["CONSOLIDATED", "事業部門の外部売上（表313）。放送＝本体単体の広告・協賛・伝送対価。2018年はE&M事業が7〜12月分のみ（合併）、CJハロー（有料放送）を含む"], "CJENM2019": ["CONSOLIDATED", "事業部門の外部売上（表242）。放送＝本体単体の広告・協賛・伝送対価"], "CJENM2020": ["CONSOLIDATED", "事業部門の外部売上（表301）。放送＝本体単体の広告・協賛・伝送対価"], "CJENM2021": ["CONSOLIDATED", "事業部門の外部売上（表243）。放送＝本体単体の広告・協賛・伝送対価"], "CJENM2022": ["CONSOLIDATED", "事業部門の外部売上（表255）。放送＝本体単体の広告・協賛・伝送対価"], "CJENM2023": ["CONSOLIDATED", "事業部門の外部売上（表1040）。放送＝本体単体の広告・協賛・伝送対価"], "CJENM2024": ["CONSOLIDATED", "事業部門の外部売上（表906）。放送＝本体単体の広告・協賛・伝送対価"], "CJENM2025": ["CONSOLIDATED", "事業部門の外部売上（表976）。放送＝本体単体の広告・協賛・伝送対価"], "JTBC2014": ["SINGLE_ASSET", "連結の内訳がない年：公表集の本体単体"], "JTBC2015": ["SINGLE_ASSET", "連結の内訳がない年：公表集の本体単体"], "JTBC2016": ["SINGLE_ASSET", "連結の内訳がない年：公表集の本体単体"], "JTBC2017": ["SINGLE_ASSET", "連結の内訳がない年：公表集の本体単体"], "JTBC2018": ["SINGLE_ASSET", "連結の内訳がない年：公表集の本体単体"], "JTBC2019": ["CONSOLIDATED", "連結「주요 제품」＋本体の振替（広告は協賛を含む）"], "JTBC2020": ["CONSOLIDATED", "連結「주요 제품」＋本体の振替（広告は協賛を含む）"], "JTBC2021": ["CONSOLIDATED", "連結「주요 제품」＋本体の振替（広告は協賛を含む）"], "JTBC2022": ["CONSOLIDATED", "連結「주요 제품」＋本体の振替（広告は協賛を含む）"], "JTBC2023": ["CONSOLIDATED", "連結「주요 제품」＋本体の振替（広告は協賛を含む）"], "JTBC2024": ["CONSOLIDATED", "連結「주요 제품」＋本体の振替（広告は協賛を含む）"], "JTBC2025": ["CONSOLIDATED", "連結「주요 제품」＋本体の振替（広告は協賛を含む）"], "SBS2014": ["CONSOLIDATED", "内訳なし（2014年は連結の内訳が未取得）"], "SBS2015": ["CONSOLIDATED", "連結注記の「기타」2669億から本体の伝送対価・その他346億を放送へ、本体の放送外209億を放送外へ振替。広告は協賛を含む"], "SBS2016": ["CONSOLIDATED", "連結注記の「기타」3681億から本体の伝送対価・その他605億を放送へ、本体の放送外213億を放送外へ振替。広告は協賛を含む"], "SBS2017": ["CONSOLIDATED", "連結注記の「기타」3052億から本体の伝送対価・その他687億を放送へ、本体の放送外216億を放送外へ振替。広告は協賛を含む"], "SBS2018": ["CONSOLIDATED", "連結注記の「기타」4810億から本体の伝送対価・その他878億を放送へ、本体の放送外254億を放送外へ振替。広告は協賛を含む"], "SBS2019": ["CONSOLIDATED", "連結注記の「기타」4293億から本体の伝送対価・その他985億を放送へ、本体の放送外430億を放送外へ振替。広告は協賛を含む"], "SBS2020": ["CONSOLIDATED", "連結注記の「기타」4986億から本体の伝送対価・その他1040億を放送へ、本体の放送外515億を放送外へ振替。広告は協賛を含む"], "SBS2021": ["CONSOLIDATED", "連結注記の「기타」6435億から本体の伝送対価・その他1050億を放送へ、本体の放送外519億を放送外へ振替。広告は協賛を含む"], "SBS2022": ["CONSOLIDATED", "連結注記の「기타」7301億から本体の伝送対価・その他1097億を放送へ、本体の放送外517億を放送外へ振替。広告は協賛を含む"], "SBS2023": ["CONSOLIDATED", "連結注記の「기타」6314億から本体の伝送対価・その他1244億を放送へ、本体の放送外477億を放送外へ振替。広告は協賛を含む"], "SBS2024": ["CONSOLIDATED", "連結注記の「기타」6922億から本体の伝送対価・その他1263億を放送へ、本体の放送外413億を放送外へ振替。広告は協賛を含む"], "SBS2025": ["CONSOLIDATED", "連結注記の「기타」6665億から本体の伝送対価・その他1247億を放送へ、本体の放送外402億を放送外へ振替。広告は協賛を含む"]}, "market": [{"y": 2014, "cat": "CP（IPTV向けコンテンツ）", "v": 2463.0}, {"y": 2014, "cat": "DMB", "v": 105.0}, {"y": 2014, "cat": "IPTV", "v": 14872.0}, {"y": 2014, "cat": "PP（有料チャンネル）", "v": 60641.0}, {"y": 2014, "cat": "SO（ケーブル）", "v": 23409.0}, {"y": 2014, "cat": "衛星", "v": 5532.0}, {"y": 2014, "cat": "地上波", "v": 39914.0}, {"y": 2015, "cat": "CP（IPTV向けコンテンツ）", "v": 2655.0}, {"y": 2015, "cat": "DMB", "v": 108.0}, {"y": 2015, "cat": "IPTV", "v": 19088.0}, {"y": 2015, "cat": "PP（有料チャンネル）", "v": 62224.0}, {"y": 2015, "cat": "SO（ケーブル）", "v": 22590.0}, {"y": 2015, "cat": "衛星", "v": 5496.0}, {"y": 2015, "cat": "地上波", "v": 41007.0}, {"y": 2016, "cat": "CP（IPTV向けコンテンツ）", "v": 3482.0}, {"y": 2016, "cat": "DMB", "v": 103.0}, {"y": 2016, "cat": "IPTV", "v": 24277.0}, {"y": 2016, "cat": "PP（有料チャンネル）", "v": 63801.0}, {"y": 2016, "cat": "SO（ケーブル）", "v": 21692.0}, {"y": 2016, "cat": "衛星", "v": 5656.0}, {"y": 2016, "cat": "地上波", "v": 39987.0}, {"y": 2017, "cat": "CP（IPTV向けコンテンツ）", "v": 5442.0}, {"y": 2017, "cat": "DMB", "v": 114.0}, {"y": 2017, "cat": "IPTV", "v": 29251.0}, {"y": 2017, "cat": "PP（有料チャンネル）", "v": 66396.0}, {"y": 2017, "cat": "SO（ケーブル）", "v": 21307.0}, {"y": 2017, "cat": "衛星", "v": 5754.0}, {"y": 2017, "cat": "地上波", "v": 36837.0}, {"y": 2018, "cat": "CP（IPTV向けコンテンツ）", "v": 5761.0}, {"y": 2018, "cat": "DMB", "v": 104.0}, {"y": 2018, "cat": "IPTV", "v": 34358.0}, {"y": 2018, "cat": "PP（有料チャンネル）", "v": 68402.0}, {"y": 2018, "cat": "SO（ケーブル）", "v": 20898.0}, {"y": 2018, "cat": "衛星", "v": 5551.0}, {"y": 2018, "cat": "地上波", "v": 37965.0}, {"y": 2019, "cat": "CP（IPTV向けコンテンツ）", "v": 6311.0}, {"y": 2019, "cat": "DMB", "v": 95.0}, {"y": 2019, "cat": "IPTV", "v": 38566.0}, {"y": 2019, "cat": "PP（有料チャンネル）", "v": 70849.0}, {"y": 2019, "cat": "SO（ケーブル）", "v": 20227.0}, {"y": 2019, "cat": "衛星", "v": 5485.0}, {"y": 2019, "cat": "地上波", "v": 35295.0}, {"y": 2020, "cat": "CP（IPTV向けコンテンツ）", "v": 6148.0}, {"y": 2020, "cat": "DMB", "v": 76.0}, {"y": 2020, "cat": "IPTV", "v": 42836.0}, {"y": 2020, "cat": "PP（有料チャンネル）", "v": 70725.0}, {"y": 2020, "cat": "SO（ケーブル）", "v": 19328.0}, {"y": 2020, "cat": "衛星", "v": 5328.0}, {"y": 2020, "cat": "地上波", "v": 35665.0}, {"y": 2021, "cat": "CP（IPTV向けコンテンツ）", "v": 8563.0}, {"y": 2021, "cat": "DMB", "v": 49.0}, {"y": 2021, "cat": "IPTV", "v": 46368.0}, {"y": 2021, "cat": "PP（有料チャンネル）", "v": 74879.0}, {"y": 2021, "cat": "SO（ケーブル）", "v": 18542.0}, {"y": 2021, "cat": "衛星", "v": 5210.0}, {"y": 2021, "cat": "地上波", "v": 39882.0}, {"y": 2022, "cat": "CP（IPTV向けコンテンツ）", "v": 9231.0}, {"y": 2022, "cat": "DMB", "v": 49.0}, {"y": 2022, "cat": "IPTV", "v": 48945.0}, {"y": 2022, "cat": "PP（有料チャンネル）", "v": 76086.0}, {"y": 2022, "cat": "SO（ケーブル）", "v": 18037.0}, {"y": 2022, "cat": "衛星", "v": 5059.0}, {"y": 2022, "cat": "地上波", "v": 41551.0}, {"y": 2023, "cat": "CP（IPTV向けコンテンツ）", "v": 11125.0}, {"y": 2023, "cat": "DMB", "v": 31.0}, {"y": 2023, "cat": "IPTV", "v": 50072.0}, {"y": 2023, "cat": "PP（有料チャンネル）", "v": 70532.0}, {"y": 2023, "cat": "SO（ケーブル）", "v": 17335.0}, {"y": 2023, "cat": "衛星", "v": 4920.0}, {"y": 2023, "cat": "地上波", "v": 37384.0}, {"y": 2024, "cat": "CP（IPTV向けコンテンツ）", "v": 9263.0}, {"y": 2024, "cat": "DMB", "v": 30.0}, {"y": 2024, "cat": "IPTV", "v": 50783.0}, {"y": 2024, "cat": "PP（有料チャンネル）", "v": 71081.0}, {"y": 2024, "cat": "SO（ケーブル）", "v": 16835.0}, {"y": 2024, "cat": "衛星", "v": 4742.0}, {"y": 2024, "cat": "地上波", "v": 35308.0}, {"y": 2025, "cat": "CP（IPTV向けコンテンツ）", "v": 12183.0}, {"y": 2025, "cat": "DMB", "v": 31.0}, {"y": 2025, "cat": "IPTV", "v": 50833.0}, {"y": 2025, "cat": "PP（有料チャンネル）", "v": 69416.0}, {"y": 2025, "cat": "SO（ケーブル）", "v": 16398.0}, {"y": 2025, "cat": "衛星", "v": 4470.0}, {"y": 2025, "cat": "地上波", "v": 33160.0}], "ter": [{"y": 2014, "s": "その他", "v": 8190}, {"y": 2014, "s": "伝送対価", "v": 1652}, {"y": 2014, "s": "協賛", "v": 3652}, {"y": 2014, "s": "受信料", "v": 6250}, {"y": 2014, "s": "広告", "v": 18897}, {"y": 2014, "s": "番組販売・イベント", "v": 6724}, {"y": 2015, "s": "その他", "v": 8761}, {"y": 2015, "s": "伝送対価", "v": 1625}, {"y": 2015, "s": "協賛", "v": 4089}, {"y": 2015, "s": "受信料", "v": 6433}, {"y": 2015, "s": "広告", "v": 19112}, {"y": 2015, "s": "番組販売・イベント", "v": 6840}, {"y": 2016, "s": "その他", "v": 8977}, {"y": 2016, "s": "伝送対価", "v": 2404}, {"y": 2016, "s": "協賛", "v": 4181}, {"y": 2016, "s": "受信料", "v": 6510}, {"y": 2016, "s": "広告", "v": 16228}, {"y": 2016, "s": "番組販売・イベント", "v": 7876}, {"y": 2017, "s": "その他", "v": 9100}, {"y": 2017, "s": "伝送対価", "v": 2647}, {"y": 2017, "s": "協賛", "v": 4062}, {"y": 2017, "s": "受信料", "v": 6643}, {"y": 2017, "s": "広告", "v": 14121}, {"y": 2017, "s": "番組販売・イベント", "v": 6429}, {"y": 2018, "s": "その他", "v": 9465}, {"y": 2018, "s": "伝送対価", "v": 3285}, {"y": 2018, "s": "協賛", "v": 3692}, {"y": 2018, "s": "受信料", "v": 6780}, {"y": 2018, "s": "広告", "v": 13007}, {"y": 2018, "s": "番組販売・イベント", "v": 8179}, {"y": 2019, "s": "その他", "v": 9871}, {"y": 2019, "s": "伝送対価", "v": 3723}, {"y": 2019, "s": "協賛", "v": 3768}, {"y": 2019, "s": "受信料", "v": 6892}, {"y": 2019, "s": "広告", "v": 10999}, {"y": 2019, "s": "番組販売・イベント", "v": 7089}, {"y": 2020, "s": "その他", "v": 9290}, {"y": 2020, "s": "伝送対価", "v": 4109}, {"y": 2020, "s": "協賛", "v": 3853}, {"y": 2020, "s": "受信料", "v": 6980}, {"y": 2020, "s": "広告", "v": 10013}, {"y": 2020, "s": "番組販売・イベント", "v": 7819}, {"y": 2021, "s": "その他", "v": 10405}, {"y": 2021, "s": "伝送対価", "v": 4199}, {"y": 2021, "s": "協賛", "v": 4097}, {"y": 2021, "s": "受信料", "v": 7055}, {"y": 2021, "s": "広告", "v": 12097}, {"y": 2021, "s": "番組販売・イベント", "v": 9049}, {"y": 2022, "s": "その他", "v": 10872}, {"y": 2022, "s": "伝送対価", "v": 4215}, {"y": 2022, "s": "協賛", "v": 4259}, {"y": 2022, "s": "受信料", "v": 7128}, {"y": 2022, "s": "広告", "v": 12091}, {"y": 2022, "s": "番組販売・イベント", "v": 10662}, {"y": 2023, "s": "その他", "v": 14389}, {"y": 2023, "s": "伝送対価", "v": 4678}, {"y": 2023, "s": "協賛", "v": 4081}, {"y": 2023, "s": "受信料", "v": 7043}, {"y": 2023, "s": "広告", "v": 9274}, {"y": 2023, "s": "番組販売・イベント", "v": 9357}, {"y": 2024, "s": "その他", "v": 11781}, {"y": 2024, "s": "伝送対価", "v": 4736}, {"y": 2024, "s": "協賛", "v": 3995}, {"y": 2024, "s": "受信料", "v": 6694}, {"y": 2024, "s": "広告", "v": 8357}, {"y": 2024, "s": "番組販売・イベント", "v": 8355}, {"y": 2025, "s": "その他", "v": 12039}, {"y": 2025, "s": "伝送対価", "v": 4697}, {"y": 2025, "s": "協賛", "v": 4308}, {"y": 2025, "s": "受信料", "v": 6358}, {"y": 2025, "s": "広告", "v": 6940}, {"y": 2025, "s": "番組販売・イベント", "v": 7639}], "sbs": {"years": [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "dom": [4595, 3385, 3437, 4190, 5414, 4634, 5387, 4893], "exp": [79, 753, 838, 1091, 1287, 1164, 1087, 1772], "tvad": [3989, 3580, 3651, 4727, 4554, 3768, 3653, 3156], "parent": [3265, 2208, 2397, 3177, 4079, 3294, 2900, 2444], "wavve": [102, 161, 469, 652, 751, 396, 340, 214], "studioS": [null, null, null, null, null, 2130, 2409, 2253]}};
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const SEG = [{k:'b',n:'放送',c:css('--c1')},{k:'ip',n:'コンテンツ・IP',c:css('--c2')},{k:'nb',n:'放送外',c:css('--c3')}];
+const fmt = d3.format(',.0f'), pct = d3.format('.0%'), pt = v => (v>0?'+':'')+d3.format('.1f')(v);
+const tip = document.getElementById('tip');
+function showTip(ev, html){ tip.innerHTML = html; tip.style.opacity = 1; moveTip(ev); }
+function moveTip(ev){ const w = tip.offsetWidth, h = tip.offsetHeight; let x = ev.clientX+14, y = ev.clientY+14;
+  if(x+w > innerWidth-8) x = ev.clientX-w-14; if(y+h > innerHeight-8) y = ev.clientY-h-14; tip.style.left = x+'px'; tip.style.top = y+'px'; }
+function hideTip(){ tip.style.opacity = 0; }
+function legend(id, items, line){ document.getElementById(id).innerHTML = items.map(s=>`<span><i class="${line?'ln':''}" style="background:${s.c}"></i>${s.n}</span>`).join(''); }
+function table(id, head, rows){ document.getElementById(id).innerHTML = '<table><tr>'+head.map(h=>`<th>${h}</th>`).join('')+'</tr>'+rows.map(r=>'<tr>'+r.map(v=>`<td>${v}</td>`).join('')+'</tr>').join('')+'</table>'; }
+const ylabel = y => `韓国 ${y-1}年 ／ 日本 ${y}年3月期`;
+
+// tabs
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected', x===b));
+  document.querySelectorAll('section.tab').forEach(s=>s.classList.toggle('on', s.id===b.dataset.t));
+  hideTip(); render();
+});
+
+const ORDER = [['KR','韓国'],['SBS'],['JTBC'],['CJENM'],['CJENM_X'],['JP','日本'],['JP5'],['NTV'],['EX'],['TBS'],['TX'],['CX']];
+function rowsFor(y){ return ORDER.map(o=> o.length===2 ? {group:o[1]} : (DATA.seg.find(d=>d.co===o[0] && d.y===y) || {co:o[0], missing:true, name:(DATA.seg.find(d=>d.co===o[0])||{}).name})); }
+
+// ① composition
+function draw1(){
+  const y = +document.getElementById('y1').value; document.getElementById('y1lab').textContent = ylabel(y);
+  const el = document.getElementById('c1'); const W = el.clientWidth || 900; const lw = Math.min(170, Math.max(124, W*0.36)), rh = 30, gh = 26;
+  const rows = rowsFor(y); let H = 8; rows.forEach(r=>H += r.group ? gh : rh); H += 24;
+  const x = d3.scaleLinear([0,1],[lw, W-8]);
+  const svg = d3.create('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-20})`).call(d3.axisBottom(x).ticks(5).tickFormat(pct).tickSizeOuter(0));
+  svg.append('g').attr('class','grid').attr('transform',`translate(0,${H-20})`).call(d3.axisBottom(x).ticks(5).tickSize(-(H-28)).tickFormat(''));
+  let yy = 8;
+  rows.forEach(r=>{
+    if(r.group){ svg.append('text').attr('class','grp').attr('x',0).attr('y',yy+gh-8).text(r.group); yy += gh; return; }
+    svg.append('text').attr('class','lbl').attr('x',lw-10).attr('y',yy+rh/2+4).attr('text-anchor','end').text(r.name);
+    if(r.missing){ svg.append('text').attr('class','lbl m').attr('x',lw+6).attr('y',yy+rh/2+4).text('この年のデータなし'); yy += rh; return; }
+    let acc = 0;
+    SEG.forEach(s=>{ const v = r[s.k]/r.t; if(v<=0){ return; }
+      const x0 = x(acc), x1 = x(acc+v); acc += v;
+      const g = svg.append('g');
+      g.append('rect').attr('x',x0+1).attr('y',yy+4).attr('width',Math.max(0,x1-x0-2)).attr('height',rh-8).attr('rx',3).attr('fill',s.c);
+      if(x1-x0 > 40) g.append('text').attr('class','lbl in').attr('x',(x0+x1)/2).attr('y',yy+rh/2+4).attr('text-anchor','middle').text(pct(v));
+      g.append('rect').attr('x',x0).attr('y',yy).attr('width',Math.max(0,x1-x0)).attr('height',rh).attr('fill','transparent')
+        .on('mousemove',ev=>showTip(ev,`<b>${r.name}</b>（${r.ctry==='KR'?r.fy+'年':r.fy+'年3月期'}）<div class="r"><span class="k"><i style="background:${s.c}"></i>${s.n}</span><span>${fmt(r[s.k])} ${r.unit}（${pct(v)}）</span></div><div class="r"><span class="k">連結売上</span><span>${fmt(r.t)} ${r.unit}</span></div>`)).on('mouseleave',hideTip);
+    });
+    yy += rh;
+  });
+  el.replaceChildren(svg.node());
+  const ns = []; const cj = DATA.notes['CJENM'+(y-1)], jt = DATA.notes['JTBC'+(y-1)];
+  if(jt && jt[0]==='SINGLE_ASSET') ns.push('<b>JTBC</b>：この年は連結の内訳がないため、本体単体の値。');
+  if(y-1===2018) ns.push('<b>CJ ENM</b>：2018年は通販事業との合併の年。E&M 事業は7〜12月分のみ。');
+  if(y-1<=2017) ns.push('<b>CJ ENM</b>：2017年までは旧 CJ E&M（合併前、通販を含まない）。');
+  ns.push('韓国の「放送」には伝送対価と PP・종편の広告を含みます。デジタル収益の重なりは韓国では切り出せないため表示していません。');
+  document.getElementById('n1').innerHTML = ns.join('　');
+  table('tb1',['会社','年','単位','連結売上','放送','コンテンツ・IP','放送外','放送 比率','コンテンツ・IP 比率','放送外 比率'],
+    rows.filter(r=>!r.group && !r.missing).map(r=>[r.name, r.ctry==='KR'?r.fy+'年':r.fy+'年3月期', r.unit, fmt(r.t), fmt(r.b), fmt(r.ip), fmt(r.nb), pct(r.b/r.t), pct(r.ip/r.t), pct(r.nb/r.t)]));
+}
+
+// ② decomposition
+function draw2(){
+  const y = +document.getElementById('y2').value; document.getElementById('y2lab').textContent = ylabel(y);
+  const el = document.getElementById('c2'); const W = el.clientWidth || 900; const lw = Math.min(170, Math.max(124, W*0.36)), rh = 30, gh = 26;
+  const rows = rowsFor(y).filter(r=>r.co!=='CJENM').map(r=>{ if(r.group||r.missing) return r; const b = DATA.seg.find(d=>d.co===r.co && d.y===2016); if(!b) return {...r, missing:true};
+    const c = {}; SEG.forEach(s=>c[s.k] = (r[s.k]-b[s.k])/b.t*100); return {...r, c, tot:(r.t-b.t)/b.t*100, base:b}; });
+  const vals = rows.filter(r=>r.c).flatMap(r=>{ let p=0,n=0; SEG.forEach(s=>{ if(r.c[s.k]>0)p+=r.c[s.k]; else n+=r.c[s.k]; }); return [p,n,r.tot]; });
+  const lim = d3.max(vals.map(Math.abs)) || 10;
+  let H = 8; rows.forEach(r=>H += r.group ? gh : rh); H += 24;
+  const x = d3.scaleLinear([-lim*1.05, lim*1.05],[lw, W-8]).nice();
+  const svg = d3.create('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  svg.append('g').attr('class','grid').attr('transform',`translate(0,${H-20})`).call(d3.axisBottom(x).ticks(6).tickSize(-(H-28)).tickFormat(''));
+  svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-20})`).call(d3.axisBottom(x).ticks(6).tickFormat(v=>pt(v)+'pt').tickSizeOuter(0));
+  svg.append('line').attr('x1',x(0)).attr('x2',x(0)).attr('y1',4).attr('y2',H-20).attr('stroke',css('--fg2')).attr('stroke-width',1);
+  let yy = 8;
+  rows.forEach(r=>{
+    if(r.group){ svg.append('text').attr('class','grp').attr('x',0).attr('y',yy+gh-8).text(r.group); yy += gh; return; }
+    svg.append('text').attr('class','lbl').attr('x',lw-10).attr('y',yy+rh/2+4).attr('text-anchor','end').text(r.name);
+    if(r.missing){ svg.append('text').attr('class','lbl m').attr('x',x(0)+6).attr('y',yy+rh/2+4).text('データなし'); yy += rh; return; }
+    let p = 0, n = 0;
+    SEG.forEach(s=>{ const v = r.c[s.k]; if(Math.abs(v)<1e-9) return; const x0 = v>0 ? x(p) : x(n+v), x1 = v>0 ? x(p+v) : x(n); if(v>0)p+=v; else n+=v;
+      svg.append('rect').attr('x',x0+1).attr('y',yy+5).attr('width',Math.max(0,x1-x0-2)).attr('height',rh-10).attr('rx',3).attr('fill',s.c)
+        .on('mousemove',ev=>showTip(ev,`<b>${r.name}</b><div class="r"><span class="k"><i style="background:${s.c}"></i>${s.n}</span><span>${pt(v)}pt</span></div><div class="r"><span class="k">金額</span><span>${fmt(r.base[s.k])} → ${fmt(r[s.k])} ${r.unit}</span></div>`)).on('mouseleave',hideTip);
+    });
+    svg.append('circle').attr('cx',x(r.tot)).attr('cy',yy+rh/2).attr('r',5).attr('fill',css('--fg')).attr('stroke',css('--panel')).attr('stroke-width',2)
+      .on('mousemove',ev=>showTip(ev,`<b>${r.name}</b><div class="r"><span class="k">売上全体</span><span>${pt(r.tot)}pt</span></div><div class="r"><span class="k">連結売上</span><span>${fmt(r.base.t)} → ${fmt(r.t)} ${r.unit}</span></div>`)).on('mouseleave',hideTip);
+    const tx = r.tot>=0 ? Math.max(x(r.tot), x(p))+8 : Math.min(x(r.tot), x(n))-8;
+    svg.append('text').attr('class','lbl m').attr('x',tx).attr('y',yy+rh/2+4).attr('text-anchor',r.tot>=0?'start':'end').text(pt(r.tot));
+    yy += rh;
+  });
+  el.replaceChildren(svg.node());
+  table('tb2',['会社','放送','コンテンツ・IP','放送外','売上全体'], rows.filter(r=>r.c).map(r=>[r.name, pt(r.c.b)+'pt', pt(r.c.ip)+'pt', pt(r.c.nb)+'pt', pt(r.tot)+'pt']));
+}
+
+// line chart helper
+function lines(id, series, years, opts={}){
+  const el = document.getElementById(id); const W = el.clientWidth || 520, H = opts.h || 300, m = {l:58, r:84, t:12, b:28};
+  const x = d3.scaleLinear(d3.extent(years), [m.l, W-m.r]);
+  const ymax = d3.max(series.flatMap(s=>s.v.filter(v=>v!=null)));
+  const y = d3.scaleLinear([0, ymax*1.08], [H-m.b, m.t]).nice();
+  const svg = d3.create('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  svg.append('g').attr('class','grid').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickSize(-(W-m.l-m.r)).tickFormat(''));
+  svg.append('g').attr('class','axis').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(d3.format(',')).tickSizeOuter(0));
+  svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(Math.min(years.length, W<480?6:12)).tickFormat(d3.format('d')).tickSizeOuter(0));
+  const ln = d3.line().defined(d=>d[1]!=null).x(d=>x(d[0])).y(d=>y(d[1]));
+  const labs = [];
+  series.forEach(s=>{
+    const pts = years.map((yr,i)=>[yr, s.v[i]]);
+    svg.append('path').attr('d',ln(pts)).attr('fill','none').attr('stroke',s.c).attr('stroke-width',2).attr('stroke-linejoin','round');
+    const last = pts.filter(p=>p[1]!=null).pop(); if(last){ svg.append('circle').attr('cx',x(last[0])).attr('cy',y(last[1])).attr('r',4).attr('fill',s.c).attr('stroke',css('--panel')).attr('stroke-width',2); labs.push({y:y(last[1]), t:s.short||s.n, x:x(last[0])+8}); }
+  });
+  labs.sort((a,b)=>a.y-b.y); for(let i=1;i<labs.length;i++) if(labs[i].y-labs[i-1].y<14) labs[i].y = labs[i-1].y+14;
+  labs.forEach(l=>svg.append('text').attr('class','lbl m').attr('x',l.x).attr('y',l.y+4).text(l.t));
+  const cross = svg.append('line').attr('y1',m.t).attr('y2',H-m.b).attr('stroke',css('--muted')).attr('stroke-dasharray','3 3').style('opacity',0);
+  svg.append('rect').attr('x',m.l).attr('y',m.t).attr('width',W-m.l-m.r).attr('height',H-m.t-m.b).attr('fill','transparent')
+    .on('mousemove',ev=>{ const [mx] = d3.pointer(ev); const yr = Math.round(x.invert(mx)); const i = years.indexOf(yr); if(i<0) return; cross.attr('x1',x(yr)).attr('x2',x(yr)).style('opacity',1);
+      showTip(ev, `<b>${yr}年</b>`+series.map(s=>`<div class="r"><span class="k"><i style="background:${s.c}"></i>${s.n}</span><span>${s.v[i]==null?'—':fmt(s.v[i])}</span></div>`).join('')); })
+    .on('mouseleave',()=>{ cross.style('opacity',0); hideTip(); });
+  el.replaceChildren(svg.node());
+}
+function stacked(id, cats, years, get){
+  const el = document.getElementById(id); const W = el.clientWidth || 520, H = 300, m = {l:58, r:12, t:12, b:28};
+  const x = d3.scaleBand(years, [m.l, W-m.r]).padding(0.18);
+  const tot = years.map(yr=>d3.sum(cats, c=>get(yr,c.n)||0));
+  const y = d3.scaleLinear([0, d3.max(tot)*1.05], [H-m.b, m.t]).nice();
+  const svg = d3.create('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  svg.append('g').attr('class','grid').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickSize(-(W-m.l-m.r)).tickFormat(''));
+  svg.append('g').attr('class','axis').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(d3.format(',')).tickSizeOuter(0));
+  svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).tickValues(years.filter((v,i)=>W<480? i%2===0 : true)).tickFormat(d=>String(d).slice(2)+'年').tickSizeOuter(0));
+  years.forEach((yr,i)=>{ let acc = 0;
+    cats.forEach(c=>{ const v = get(yr,c.n)||0; if(v<=0) return; const y0 = y(acc), y1 = y(acc+v); acc += v;
+      svg.append('rect').attr('x',x(yr)).attr('width',x.bandwidth()).attr('y',y1+1).attr('height',Math.max(0,y0-y1-2)).attr('rx',2).attr('fill',c.c); });
+    svg.append('rect').attr('x',x(yr)-2).attr('width',x.bandwidth()+4).attr('y',m.t).attr('height',H-m.t-m.b).attr('fill','transparent')
+      .on('mousemove',ev=>showTip(ev,`<b>${yr}年</b>`+cats.slice().reverse().map(c=>`<div class="r"><span class="k"><i style="background:${c.c}"></i>${c.n}</span><span>${fmt(get(yr,c.n)||0)}</span></div>`).join('')+`<div class="r"><span class="k">計</span><span>${fmt(tot[i])}</span></div>`)).on('mouseleave',hideTip);
+  });
+  el.replaceChildren(svg.node());
+}
+
+// ③ market
+function draw3(){
+  const years = d3.range(2014, 2026);
+  const fold = c => ['衛星','DMB'].includes(c) ? '衛星・DMB' : c;
+  const mk = d3.rollup(DATA.market, v=>d3.sum(v,d=>d.v), d=>fold(d.cat), d=>d.y);
+  const S = [{n:'PP（有料チャンネル）',short:'PP',c:css('--s2')},{n:'IPTV',c:css('--s3')},{n:'地上波',c:css('--s1')},{n:'SO（ケーブル）',short:'SO',c:css('--s4')},{n:'CP（IPTV向けコンテンツ）',short:'CP',c:css('--s5')},{n:'衛星・DMB',short:'衛星等',c:css('--other')}];
+  S.forEach(s=>s.v = years.map(y=>(mk.get(s.n)||new Map()).get(y)??null));
+  legend('lg3a', S, true); lines('c3a', S, years);
+  table('tb3a',['年',...S.map(s=>s.n)], years.map((y,i)=>[y, ...S.map(s=>s.v[i]==null?'—':fmt(s.v[i]))]));
+  const T = [{n:'受信料',c:css('--s4')},{n:'広告',c:css('--s1')},{n:'協賛',c:css('--s5')},{n:'伝送対価',c:css('--s3')},{n:'番組販売・イベント',c:css('--s2')},{n:'その他',c:css('--other')}];
+  const tm = d3.rollup(DATA.ter, v=>d3.sum(v,d=>d.v), d=>d.y, d=>d.s);
+  legend('lg3b', T.slice().reverse().map(t=>t.n==='その他'?{...t,n:'その他（放送その他・放送外）'}:t)); stacked('c3b', T, years, (y,c)=>(tm.get(y)||new Map()).get(c));
+  table('tb3b',['年',...T.map(t=>t.n)], years.map(y=>[y, ...T.map(t=>fmt((tm.get(y)||new Map()).get(t.n)||0))]));
+  const g = n => (mk.get(n)||new Map());
+  const k = [
+    ['地上波の放送事業売上', `${fmt(g('地上波').get(2016))} → ${fmt(g('地上波').get(2025))}`, '億ウォン（2016→2025年）'],
+    ['IPTVの放送事業売上', `${fmt(g('IPTV').get(2016))} → ${fmt(g('IPTV').get(2025))}`, '億ウォン（2016→2025年）'],
+    ['地上波の広告', `${fmt((tm.get(2016)||new Map()).get('広告'))} → ${fmt((tm.get(2025)||new Map()).get('広告'))}`, '億ウォン（2016→2025年）'],
+    ['地上波の伝送対価', `${fmt((tm.get(2016)||new Map()).get('伝送対価'))} → ${fmt((tm.get(2025)||new Map()).get('伝送対価'))}`, '億ウォン（2016→2025年）']];
+  document.getElementById('k3').innerHTML = k.map(a=>`<div><div class="k">${a[0]}</div><div class="v">${a[1]}</div><div class="k">${a[2]}</div></div>`).join('');
+}
+
+// ④ SBS
+function draw4(){
+  const s = DATA.sbs, yrs = s.years;
+  const A = [{n:'番組販売など・国内',short:'国内',c:css('--s1'),v:s.dom},{n:'番組販売など・輸出',short:'輸出',c:css('--s2'),v:s.exp},{n:'TV広告（参考）',short:'TV広告',c:css('--other'),v:s.tvad}];
+  legend('lg4a', A, true); lines('c4a', A, yrs);
+  const B = [{n:'SBS本体の番組販売',short:'本体',c:css('--s1'),v:s.parent},{n:'Studio S の番組販売',short:'Studio S',c:css('--s3'),v:s.studioS},{n:'Wavve からの収入',short:'Wavve',c:css('--s5'),v:s.wavve}];
+  legend('lg4b', B, true); lines('c4b', B, yrs);
+  table('tb4',['年','国内','輸出','TV広告','本体の番組販売','Studio S','Wavve'], yrs.map((y,i)=>[y, fmt(s.dom[i]), fmt(s.exp[i]), fmt(s.tvad[i]), fmt(s.parent[i]), s.studioS[i]==null?'—':fmt(s.studioS[i]), fmt(s.wavve[i])]));
+}
+
+
+// ①-2 company time series (stacked bars)
+const CO1B = [['SBS','SBS'],['JTBC','JTBC'],['CJENM','CJ ENM'],['CJENM_X','CJ ENM（通販除く）'],null,['JP5','日本5局計'],['NTV','日本テレビHD'],['EX','テレビ朝日HD'],['TBS','TBS HD'],['TX','テレビ東京HD'],['CX','フジ・メディアHD']];
+let co1b = 'SBS', md1b = 'abs';
+document.getElementById('co1b').innerHTML = CO1B.map(c=> c ? `<button aria-pressed="${c[0]===co1b}" data-c="${c[0]}">${c[1]}</button>` : '<span class="sep"></span>').join('');
+document.querySelectorAll('#co1b button').forEach(b=>b.onclick=()=>{ co1b = b.dataset.c; document.querySelectorAll('#co1b button').forEach(x=>x.setAttribute('aria-pressed', x===b)); draw1b(); });
+document.querySelectorAll('#md1b button').forEach(b=>b.onclick=()=>{ md1b = b.dataset.m; document.querySelectorAll('#md1b button').forEach(x=>x.setAttribute('aria-pressed', x===b)); draw1b(); });
+function draw1b(){
+  const rs = DATA.seg.filter(d=>d.co===co1b).sort((a,b)=>a.fy-b.fy);
+  if(!rs.length) return;
+  const kr = rs[0].ctry==='KR', unit = rs[0].unit, pctMode = md1b==='pct';
+  const lab = r => kr ? String(r.fy) : `${String(r.fy).slice(2)}/3`;
+  const el = document.getElementById('c1b'); const W = el.clientWidth || 900, H = 380, m = {l: pctMode?44:70, r:10, t:16, b:30};
+  const x = d3.scaleBand(rs.map(lab), [m.l, W-m.r]).padding(0.28);
+  const val = (r,k) => pctMode ? r[k]/r.t : r[k];
+  const y = d3.scaleLinear([0, pctMode ? 1 : d3.max(rs, r=>r.b+r.ip+r.nb)*1.06], [H-m.b, m.t]).nice();
+  const svg = d3.create('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  svg.append('g').attr('class','grid').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickSize(-(W-m.l-m.r)).tickFormat(''));
+  svg.append('g').attr('class','axis').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(pctMode ? pct : (v=>fmt(v)+(W<520?'':' 億'))).tickSizeOuter(0));
+  const step = W<520 ? 2 : 1;
+  svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).tickValues(rs.map(lab).filter((v,i)=>i%step===0)).tickSizeOuter(0));
+  const bw = x.bandwidth();
+  rs.forEach(r=>{ let acc = 0; const x0 = x(lab(r));
+    SEG.forEach(sg=>{ const v = val(r,sg.k); if(!(v>0)) return; const y0 = y(acc), y1 = y(acc+v); acc += v;
+      svg.append('rect').attr('x',x0).attr('width',bw).attr('y',y1+1).attr('height',Math.max(0,y0-y1-2)).attr('rx',3).attr('fill',sg.c);
+      const h = y0-y1, share = r[sg.k]/r.t;
+      if(h > 16 && bw > 26) svg.append('text').attr('class','lbl in').attr('x',x0+bw/2).attr('y',(y0+y1)/2+4).attr('text-anchor','middle').style('font-size', bw<40?'10px':'11px')
+        .text(pctMode ? pct(share) : (share>=0.1 ? d3.format(',.0f')(r[sg.k]) : ''));
+    });
+    if(!pctMode && bw>30) svg.append('text').attr('class','lbl m').attr('x',x0+bw/2).attr('y',y(acc)-5).attr('text-anchor','middle').style('font-size','10.5px').text(fmt(r.t));
+    svg.append('rect').attr('x',x0-3).attr('width',bw+6).attr('y',m.t).attr('height',H-m.t-m.b).attr('fill','transparent')
+      .on('mousemove',ev=>showTip(ev,`<b>${r.name}</b>（${kr ? r.fy+'年' : r.fy+'年3月期'}）`+SEG.slice().reverse().map(sg=>`<div class="r"><span class="k"><i style="background:${sg.c}"></i>${sg.n}</span><span>${fmt(r[sg.k])} ${unit}（${pct(r[sg.k]/r.t)}）</span></div>`).join('')+`<div class="r"><span class="k">連結売上</span><span>${fmt(r.t)} ${unit}</span></div>`)).on('mouseleave',hideTip);
+  });
+  el.replaceChildren(svg.node());
+  const ns = [`単位：${pctMode ? '売上に占める比率' : unit}。${kr ? '年は暦年（12月期）。' : '年は3月期。'}`];
+  if(co1b==='SBS') ns.push('2014年は連結の内訳が取れないため表示していません。');
+  if(co1b==='JTBC') ns.push('<b>2018年以前</b>は連結の内訳がないため、本体単体の値です。');
+  if(co1b.startsWith('CJENM')) ns.push('<b>2017年まで</b>は旧 CJ E&M（通販事業との合併前）。<b>2018年</b>は合併の年で、E&M 事業は7〜12月分のみ、有料放送の CJハロー（放送外）を含みます。');
+  if(kr) ns.push('「放送」には伝送対価と PP・종편の広告を含みます。');
+  document.getElementById('n1b').innerHTML = ns.join(' ');
+  table('tb1b',['年','連結売上','放送','コンテンツ・IP','放送外','放送 比率','コンテンツ・IP 比率','放送外 比率'],
+    rs.map(r=>[kr ? r.fy+'年' : r.fy+'年3月期', fmt(r.t), fmt(r.b), fmt(r.ip), fmt(r.nb), pct(r.b/r.t), pct(r.ip/r.t), pct(r.nb/r.t)]));
+}
+legend('lg1b', SEG);
+legend('lg1', SEG); legend('lg2', SEG);
+document.getElementById('y1').oninput = draw1; document.getElementById('y2').oninput = draw2;
+
+// ⑤ Netflix
+const NF = {"share": [{"p": "2023H1", "KR": 8.36, "JP": 4.05}, {"p": "2023H2", "KR": 8.88, "JP": 4.54}, {"p": "2024H1", "KR": 8.6, "JP": 4.86}, {"p": "2024H2", "KR": 9.64, "JP": 5.08}, {"p": "2025H1", "KR": 10.94, "JP": 5.72}, {"p": "2025H2", "KR": 9.57, "JP": 5.9}, {"p": "2026H1", "KR": 8.87, "JP": 5.91}], "live": [{"cc": "KR", "n": "SBS", "g": 54.3, "h": 5861.7, "a": 1915, "w": false}, {"cc": "KR", "n": "JTBC", "g": 74.0, "h": 8702.4, "a": 3105, "w": false}, {"cc": "KR", "n": "CJ（tvN等）", "g": 88.4, "h": 13396.9, "a": 3133, "w": false}, {"cc": "KR", "n": "MBC", "g": 58.6, "h": 1732.4, "a": 709, "w": false}, {"cc": "KR", "n": "KBS", "g": 30.9, "h": 2163.4, "a": 151, "w": false}, {"cc": "JP", "n": "TBS", "g": 0.0, "h": 922.1, "a": 29, "w": false}, {"cc": "JP", "n": "フジテレビ", "g": 49.0, "h": 180.5, "a": 4, "w": false}, {"cc": "JP", "n": "日本テレビ", "g": 58.8, "h": 183.3, "a": 13, "w": false}, {"cc": "JP", "n": "テレビ朝日", "g": 0.0, "h": 101.0, "a": 2, "w": false}, {"cc": "TH", "n": "Channel 3", "g": 0.0, "h": 235.1, "a": 16, "w": false}, {"cc": "TH", "n": "GMM", "g": 87.7, "h": 120.0, "a": 2, "w": false}, {"cc": "TH", "n": "One31", "g": 29.5, "h": 92.1, "a": 63, "w": false}, {"cc": "PH", "n": "GMA", "g": 0.0, "h": 113.6, "a": 16, "w": false}, {"cc": "PH", "n": "ABS-CBN", "g": 0.0, "h": 76.2, "a": 0, "w": false}], "anime": [{"cc": "KR", "n": "SBS", "g": 54.3, "h": 5861.7, "a": 1915, "w": false}, {"cc": "KR", "n": "JTBC", "g": 74.0, "h": 8702.4, "a": 3105, "w": false}, {"cc": "KR", "n": "CJ（tvN等）", "g": 88.4, "h": 13396.9, "a": 3133, "w": false}, {"cc": "KR", "n": "MBC", "g": 58.6, "h": 1732.4, "a": 709, "w": false}, {"cc": "KR", "n": "KBS", "g": 30.9, "h": 2163.4, "a": 151, "w": false}, {"cc": "KR", "n": "Netflixの自社作品（韓国）", "g": 90.9, "h": 17800.8, "a": 9875, "w": true}, {"cc": "JP", "n": "TBS系", "g": 0.0, "h": 1760.1, "a": 389, "w": false, "an": 48}, {"cc": "JP", "n": "日テレ系", "g": 5.9, "h": 1837.7, "a": 179, "w": false, "an": 90}, {"cc": "JP", "n": "テレ東系", "g": 18.6, "h": 2521.2, "a": 742, "w": false, "an": 99}, {"cc": "JP", "n": "フジ系", "g": 35.2, "h": 347.8, "a": 63, "w": false, "an": 24}, {"cc": "JP", "n": "テレ朝系", "g": 0.0, "h": 227.0, "a": 2, "w": false, "an": 56}, {"cc": "JP", "n": "NHK", "g": 56.3, "h": 363.3, "a": 9, "w": false, "an": 98}, {"cc": "JP", "n": "独立局・BS・CS", "g": 21.1, "h": 860.8, "a": 381, "w": false, "an": 96}, {"cc": "JP", "n": "Netflixの自社作品（日本）", "g": 91.9, "h": 2881.3, "a": 1626, "w": true}, {"cc": "JP", "n": "局不明（9割がアニメ）", "g": 28.7, "h": 7158.7, "a": 2359, "w": true}, {"cc": "JP", "n": "局の関与なし（制作会社主導のアニメ）", "g": 0.0, "h": 316.3, "a": 163, "w": true}, {"cc": "TH", "n": "Channel 3", "g": 0.0, "h": 235.1, "a": 16, "w": false}, {"cc": "TH", "n": "GMM", "g": 87.7, "h": 120.0, "a": 2, "w": false}, {"cc": "TH", "n": "One31", "g": 29.5, "h": 92.1, "a": 63, "w": false}, {"cc": "PH", "n": "GMA", "g": 0.0, "h": 113.6, "a": 16, "w": false}, {"cc": "PH", "n": "ABS-CBN", "g": 0.0, "h": 76.2, "a": 0, "w": false}], "ts": {"SBS": [["2023H1", 45.3, 134], ["2023H2", 51.4, 300], ["2024H1", 56.7, 210], ["2024H2", 42.9, 9], ["2025H1", 32.6, 116], ["2025H2", 63.0, 338], ["2026H1", 68.3, 808]], "JTBC": [["2023H1", 73.7, 565], ["2023H2", 89.0, 1097], ["2024H1", 86.7, 328], ["2024H2", 49.1, 744], ["2025H1", 73.3, 89], ["2025H2", 81.7, 273], ["2026H1", 81.2, 9]], "フジテレビ": [["2023H1", null, 0], ["2023H2", null, 0], ["2024H1", null, 0], ["2024H2", 43.3, 0], ["2025H1", 17.0, 0], ["2025H2", 65.7, 1], ["2026H1", 62.2, 3]]}, "cty": [["インドネシア", 46], ["ベトナム", 43], ["マレーシア", 38], ["フィリピン", 35], ["台湾", 34], ["タイ", 33], ["日本", 18], ["ブラジル", 13], ["米国", 3], ["英国", 2]]};
+const PER = p => p.slice(0,4)+'年'+(p.endsWith('H1')?'1〜6月':'7〜12月');
+const PERS = p => p.slice(2,4)+(p.endsWith('H1')?'前':'後');
+const CC = {KR:()=>css('--c1'), JP:()=>css('--c2'), TH:()=>css('--c3'), PH:()=>css('--c3')};
+let bubMode = 'live';
+function draw6a(){
+  const el=document.getElementById('c6a'); const W=el.clientWidth||520,H=280,m={l:40,r:44,t:12,b:28};
+  const P=NF.share.map(d=>d.p); const x=d3.scalePoint(P,[m.l,W-m.r]); const y=d3.scaleLinear([0,12],[H-m.b,m.t]);
+  const svg=d3.create('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  svg.append('g').attr('class','grid').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(6).tickSize(-(W-m.l-m.r)).tickFormat(''));
+  svg.append('g').attr('class','axis').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(6).tickSizeOuter(0));
+  svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).tickFormat(PERS).tickSizeOuter(0));
+  [['KR','韓国の作品'],['JP','日本の作品']].forEach(([k,n])=>{
+    const c=CC[k](); svg.append('path').attr('d',d3.line().x(d=>x(d.p)).y(d=>y(d[k]))(NF.share)).attr('fill','none').attr('stroke',c).attr('stroke-width',2.2);
+    NF.share.forEach(d=>svg.append('circle').attr('cx',x(d.p)).attr('cy',y(d[k])).attr('r',3.5).attr('fill',c).attr('stroke',css('--panel')).attr('stroke-width',1.5)
+      .on('mousemove',ev=>showTip(ev,`<b>${PER(d.p)}</b><div class="r"><span class="k">${n}</span><span>${d[k].toFixed(1)}%</span></div>`)).on('mouseleave',hideTip));
+    const l=NF.share[NF.share.length-1]; svg.append('text').attr('class','lbl').attr('x',x(l.p)+8).attr('y',y(l[k])+4).text(l[k].toFixed(1)+'%');
+  });
+  el.replaceChildren(svg.node());
+}
+function draw6b(){
+  const el=document.getElementById('c6b'); const W=el.clientWidth||520,rh=24,m={l:92,r:44,t:4,b:4},H=m.t+m.b+rh*NF.cty.length;
+  const x=d3.scaleLinear([0,50],[m.l,W-m.r]); const svg=d3.create('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  NF.cty.forEach(([n,v],i)=>{ const yy=m.t+i*rh; const c=v>=30?css('--c2'):(v>=10?css('--c1'):css('--other'));
+    svg.append('text').attr('class','lbl').attr('x',m.l-8).attr('y',yy+rh/2+4).attr('text-anchor','end').text(n);
+    svg.append('rect').attr('x',m.l).attr('y',yy+4).attr('width',x(v)-m.l).attr('height',rh-8).attr('rx',3).attr('fill',c);
+    svg.append('text').attr('class','lbl m').attr('x',x(v)+6).attr('y',yy+rh/2+4).text(v+'%'); });
+  el.replaceChildren(svg.node());
+}
+function draw6c(){
+  const D=NF[bubMode]; const el=document.getElementById('c6c'); const W=el.clientWidth||900,H=W<560?420:480,m={l:56,r:16,t:16,b:44};
+  const x=d3.scaleLinear([-4,100],[m.l,W-m.r]); const y=d3.scaleSymlog([0,20000],[H-m.b,m.t]).constant(10);
+  const r=d3.scaleSqrt([0,18000],[0,W<560?26:40]);
+  const svg=d3.create('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  const yt=[0,10,100,1000,10000];
+  svg.append('g').attr('class','grid').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).tickValues(yt).tickSize(-(W-m.l-m.r)).tickFormat(''));
+  svg.append('g').attr('class','grid').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(5).tickSize(-(H-m.t-m.b)).tickFormat(''));
+  svg.append('g').attr('class','axis').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).tickValues(yt).tickFormat(d3.format(',')).tickSizeOuter(0));
+  svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(5).tickFormat(d=>d+'%').tickSizeOuter(0));
+  svg.append('text').attr('class','lbl m').attr('x',W-m.r).attr('y',H-8).attr('text-anchor','end').text('世界配信の比率 →');
+  svg.append('text').attr('class','lbl m').attr('x',m.l+4).attr('y',m.t+10).text('↑ 自国外のトップ10の回数');
+  const S=[...D].sort((a,b)=>b.h-a.h);
+  S.forEach(d=>{ const c=CC[d.cc]();
+    svg.append('circle').attr('cx',x(d.g)).attr('cy',y(d.a)).attr('r',r(d.h)).attr('fill',d.w?'none':c).attr('fill-opacity',.85).attr('stroke',d.w?c:css('--panel')).attr('stroke-width',d.w?2:1.2)
+     .on('mousemove',ev=>showTip(ev,`<b>${d.n}</b>`+(d.an!=null?`<div class="r"><span class="k">アニメの比率</span><span>${d.an}%</span></div>`:'')+`<div class="r"><span class="k">世界配信の比率</span><span>${d.g.toFixed(1)}%</span></div><div class="r"><span class="k">自国外のトップ10</span><span>${fmt(d.a)}回</span></div><div class="r"><span class="k">視聴時間</span><span>${fmt(d.h)}百万時間</span></div>`)).on('mouseleave',hideTip); });
+  const small = W<560;
+  S.filter(d=>!small || d.h>900 || d.cc!=='JP').forEach(d=>{ if(d.n==='GMA') return;
+    let t=d.n==='Channel 3'?'Channel 3・GMA':d.n; if(d.an!=null) t+=`（アニメ${d.an}%）`; if(small) t=t.replace(/（.*）/,'');
+    const right = x(d.g) < W*0.62; const dy = d.n.startsWith('局の関与なし') ? 20 : (d.n.startsWith('テレビ朝日')||d.n.startsWith('テレ朝系')) ? -6 : 4; svg.append('text').attr('class','bub-lbl').attr('x',x(d.g)+(right?1:-1)*(r(d.h)+4)).attr('y',y(d.a)+dy).attr('text-anchor',right?'start':'end').text(t); });
+  el.replaceChildren(svg.node());
+  legend('lg6c',[{n:'韓国',c:css('--c1')},{n:'日本',c:css('--c2')},{n:'タイ・フィリピン',c:css('--c3')}]);
+  document.getElementById('n6c').innerHTML = bubMode==='live' ? '日本の実写は、日本テレビ（世界配信59%）・フジテレビ（49%）でも海外のトップ10にほぼ入りません。' : 'アニメを含めると、日本の系列も海外のトップ10に入ります。局の関与なし＝著作権表示に局が入らない作品（地獄楽・チェンソーマン・ドラゴンボールDAIMA・SLAM DUNK）。';
+  table('tb6c',['局','世界配信の比率','自国外のトップ10','視聴時間（百万時間）'], D.map(d=>[d.n+(d.an!=null?`（アニメ${d.an}%）`:''), d.g.toFixed(1)+'%', fmt(d.a), fmt(d.h)]));
+}
+function draw6d(){
+  const S=[{n:'SBS',c:css('--c1')},{n:'JTBC',c:'#8fb4e6'},{n:'フジテレビ',c:css('--c2')}];
+  legend('lg6d',S,true);
+  [['c6d1',1,[0,100]],['c6d2',2,[0,1200]]].forEach(([id,k,dom])=>{
+    const el=document.getElementById(id); const W=el.clientWidth||440,H=240,m={l:44,r:40,t:10,b:28};
+    const P=NF.ts.SBS.map(d=>d[0]); const x=d3.scalePoint(P,[m.l,W-m.r]); const y=d3.scaleLinear(dom,[H-m.b,m.t]);
+    const svg=d3.create('svg').attr('viewBox',`0 0 ${W} ${H}`);
+    svg.append('g').attr('class','grid').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickSize(-(W-m.l-m.r)).tickFormat(''));
+    svg.append('g').attr('class','axis').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(d3.format(',')).tickSizeOuter(0));
+    svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).tickFormat(PERS).tickSizeOuter(0));
+    const xc=(x('2024H2')+x('2025H1'))/2; svg.append('line').attr('x1',xc).attr('x2',xc).attr('y1',m.t).attr('y2',H-m.b).attr('stroke',css('--muted')).attr('stroke-dasharray','4 4');
+    S.forEach(s=>{ const pts=NF.ts[s.n].map(d=>[d[0],d[k]]);
+      svg.append('path').attr('d',d3.line().defined(d=>d[1]!=null).x(d=>x(d[0])).y(d=>y(d[1]))(pts)).attr('fill','none').attr('stroke',s.c).attr('stroke-width',s.n==='SBS'?2.6:2);
+      pts.filter(d=>d[1]!=null).forEach(d=>svg.append('circle').attr('cx',x(d[0])).attr('cy',y(d[1])).attr('r',3.2).attr('fill',s.c)
+        .on('mousemove',ev=>showTip(ev,`<b>${s.n}・${PER(d[0])}</b><div class="r"><span class="k">${k===1?'世界配信の比率':'自国外のトップ10'}</span><span>${k===1?d[1].toFixed(1)+'%':fmt(d[1])+'回'}</span></div>`)).on('mouseleave',hideTip));
+      const l=pts[pts.length-1]; if(k===2) svg.append('text').attr('class','lbl').attr('x',x(l[0])+6).attr('y',y(l[1])+4).text(fmt(l[1])); });
+    el.replaceChildren(svg.node()); });
+}
+function draw6(){ legend('lg6a',[{n:'韓国の作品',c:css('--c1')},{n:'日本の作品',c:css('--c2')}],true); draw6a(); draw6b(); draw6c(); draw6d(); }
+document.querySelectorAll('#b6c button').forEach(b=>b.onclick=()=>{ bubMode=b.dataset.v; document.querySelectorAll('#b6c button').forEach(x=>x.setAttribute('aria-pressed',x===b)); draw6c(); });
+function render(){ const on = document.querySelector('section.tab.on').id; ({t1:()=>{draw1();draw1b();},t2:draw2,t3:draw3,t4:draw4,t6:draw6})[on]?.(); }
+let rt; addEventListener('resize', ()=>{ clearTimeout(rt); rt = setTimeout(render, 120); });
+render();
+</script>
+</body>
+</html>
